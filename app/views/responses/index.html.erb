@@ -10,16 +10,32 @@
   </thead>
 
   <tbody>
-    <% @responses.each do |response| %>
-      <tr>
-        <td><%= link_to 'Show', response %></td>
-        <td><%= link_to 'Edit', edit_response_path(response) %></td>
-        <td><%= link_to 'Destroy', response, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+	<div>
+		<hr />
+		<div>
+			<dl>
+				<dt>1：
+				<font color="green">名無しさん</font>
+				：2015/05/27(水) 19:10:54.46 ID:VtSdSwji</dt>
+				<dd>投稿1</dd>
+				<dt>2：
+				<font color="green">名無しさん</font>
+				：2015/05/27(水) 19:10:54.46 ID:VtSdSwji</dt>
+				<dd>投稿2</dd>
+			</dl>
+		</div>
+		<hr />
+		<form action="/respons/new" accept-charset="UTF-8" method="get">
+			<input type="hidden" name="thread_id" value="">
+			<input type="submit" name="commit" value="書き込む" />
+			<label>名前：</label><input type="text" name="user_name" id="user_name" />
+			<label>Mail：</label><input type="text" name="user_address" id="user_address" />
+			<ul>
+				<textarea name="comment" id="comment" cols="24" rows="6"></textarea>
+			</ul>
+		</form>
+	</div>
   </tbody>
 </table>
-
-<br>
 
 <%= link_to 'New Response', new_response_path %>
