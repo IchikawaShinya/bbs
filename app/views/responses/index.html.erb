@@ -11,25 +11,46 @@
 
   <tbody>
 	<div>
+		<%= flash[:notice] %>
 		<hr />
 		<div>
 			<dl>
-				<dt>1：
+				<% @responses.each do |f| %>
+					<dt><%= f.response_num %>：
+					<% if f.user_email.blank? %>
+						<font color="green"><%= f.user_name %></font>
+					<% else %>
+						<a href="mailto:<%= f.user_email %>"><font color="blue"><%= f.user_name %></font></a>
+					<% end %>
+					：<%= f.created_at.strftime("%Y/%m/%d %H:%M:%S") %> ID:<%= f.user_ipaddress %></dt>
+					<dd><%= f.comment %></dd>
+				<% end %>
+<!--				<dt>1：
 				<font color="green">名無しさん</font>
 				：2015/05/27(水) 19:10:54.46 ID:VtSdSwji</dt>
 				<dd>投稿1</dd>
 				<dt>2：
 				<font color="green">名無しさん</font>
 				：2015/05/27(水) 19:10:54.46 ID:VtSdSwji</dt>
-				<dd>投稿2</dd>
+				<dd>投稿2</dd> -->
 			</dl>
 		</div>
 		<hr />
-		<form action="/respons/new" accept-charset="UTF-8" method="get">
-			<input type="hidden" name="thread_id" value="">
+		
+		<% form_tag("/responses/new")  do |f| %>
+			<%= label :name, "名前：" %>
+			<%= text_field_tag :user_name %>
+			<%= label :email, "Mail：" %>
+			<%= text_field_tag :user_email %>
+		<% end %>
+		
+		<form action="/responses/new" accept-charset="UTF-8" method="post">
+			<input type="hidden" name="response_num" value="<%= @response_num %>">
+			<input type="hidden" name="thread_id" value="1">
+			<input type="hidden" name="user_ipaddress" value="<%= IPSocket::getaddress(Socket::gethostname) %>">
 			<input type="submit" name="commit" value="書き込む" />
 			<label>名前：</label><input type="text" name="user_name" id="user_name" />
-			<label>Mail：</label><input type="text" name="user_address" id="user_address" />
+			<label>Mail：</label><input type="text" name="user_email" id="user_email" />
 			<ul>
 				<textarea name="comment" id="comment" cols="24" rows="6"></textarea>
 			</ul>

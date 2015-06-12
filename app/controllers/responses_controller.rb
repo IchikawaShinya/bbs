@@ -1,20 +1,38 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: [:show, :edit, :update, :destroy]
+  before_action :set_response, only: [:edit, :update, :destroy]
+  protect_from_forgery except: [:new]
 
-  # GET /responses
-  # GET /responses.json
   def index
-    @responses = Response.all
+    thread_id = 1
+    @responses = Response.where("thread_id = ?", thread_id).order('response_num ASC')
+    
+    if @responses.length > 0
+      @response_num = @responses.length + 1
+    end
+    
   end
-
-  # GET /responses/1
-  # GET /responses/1.json
-  def show
-  end
-
-  # GET /responses/new
+  
   def new
-    @response = Response.new
+    @response = Response.new(params[:response])
+    
+    if params[:user_name].blank?
+      params[:user_name] = "名無しさん"
+    end
+    
+    @response.attributes = {response_num: params[:response_num],
+                            thread_id: params[:thread_id],
+                            user_name: params[:user_name],
+                            user_email: params[:user_email],
+                            user_ipaddress: params[:user_ipaddress],
+                            comment: params[:comment]}
+    
+    
+    logger.debug(@response)
+    
+    if @response.save
+      flash[:notice] = "投稿しました。"
+      # redirect_to :action => 'index'
+    end
   end
 
   # GET /responses/1/edit
