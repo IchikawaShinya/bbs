@@ -1,4 +1,6 @@
 require './test/test_helper.rb'
+require './spec/rails_helper.rb'
+require './spec/spec_helper.rb'
 
 class ResponsesControllerTest < ActionController::TestCase
   # setup do
@@ -11,26 +13,16 @@ class ResponsesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:responses)
   end
 
-  test "should get new" do
-    # get :new
-#    it "コメント登録" do
-      @respons = Response.new(response_num: 2,
-                              thread_id: 1,
-                              user_name: "user2",
-                              user_email: "test@test.com",
-                              user_ipaddress: "192.168.0.2",
-                              comment: "テスト",
-                              delete_flg: false)
-      @respons.new.should be_true
-      Proc.new { @respons.save }.should change(Responses, :count).by(1)
+  test "new method" do
+      post :new, {:response_num=> 2,
+                    :thread_id=> 1,
+                    :user_name=> "user2",
+                    :user_email=> "test@test.com",
+                    :user_ipaddress=> "192.168.0.2",
+                    :comment=> "投稿テスト"}
+      @res = Response.where("thread_id = 1").order('response_num ASC')
+      @res.length.should == 2
       assert_response :success
-    # end
-#     
-    # it "投稿後画面に遷移する" do
-      # post :new, username: attributes_for(:user)
-      # expect(response).to redirect_to users_path
-    # end
-    
   end
 # 
   # test "should create response" do

@@ -25,10 +25,6 @@ class ResponsesController < ApplicationController
                             user_email: params[:user_email],
                             user_ipaddress: params[:user_ipaddress],
                             comment: params[:comment]}
-    
-    
-    logger.debug(@response)
-    
     if @response.save
       flash[:notice] = "投稿しました。"
       # redirect_to :action => 'index'

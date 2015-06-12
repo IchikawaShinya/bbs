@@ -30,10 +30,10 @@ test:
   encoding: utf8
   pool: 5
   port: 5432
-  database: d5f3nh38e2647v
-  username: gcpyocvnwtvsae
-  password: 9Nhu3m0X8Cu-M4RYUDKDcUSzZ3
-  host: ec2-54-83-46-91.compute-1.amazonaws.com
+  database: d3paul7oq6fm52
+  username: tlmfeqssyxubrn
+  password: 1RaZYz5nRelO9qaZS9c2RmkFWl
+  host: ec2-54-83-36-90.compute-1.amazonaws.com
   sslmode: require
  
 production:
