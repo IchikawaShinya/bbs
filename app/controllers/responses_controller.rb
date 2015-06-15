@@ -4,7 +4,7 @@ class ResponsesController < ApplicationController
 
   def index
     thread_id = 1
-    @responses = Response.where("thread_id = ?", thread_id).order('response_num ASC')
+    @responses = Response.where("thread_id = ?", thread_id)
     
     if @responses.length > 0
       @response_num = @responses.length + 1
