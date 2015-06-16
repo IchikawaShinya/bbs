@@ -15,10 +15,6 @@ class ResponsesController < ApplicationController
   def new
     @response = Response.new(params[:response])
     
-    if params[:user_name].blank?
-      params[:user_name] = "名無しさん"
-    end
-    
     @response.attributes = {response_num: params[:response_num],
                             thread_id: params[:thread_id],
                             user_name: params[:user_name],
