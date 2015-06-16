@@ -1,4 +1,47 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_response_path(@response) %> |
+<h1><%= "掲示板"+ @thread_id %></h1>
+<%= render 'form' %>
+	<div>
+		<hr />
+		<div>
+			<% unless @responses.blank? %>
+				<dl>
+				    <% @responses.each do |response| %>
+				    	<% unless response.delete_flg %>
+							<dt><%= response.response_num %>：
+							<% if response.user_email.blank? %>
+								<font color="green"><%= response.user_name %></font>
+							<% else %>
+								<a href="mailto:<%= response.user_email %>"><font color="blue"><%= response.user_name %></font></a>
+							<% end %>
+							：<%= response.created_at.strftime("%Y/%m/%d %H:%M:%S") %> ID:<%= response.user_ipaddress %></dt>
+							<dd><%= response.comment %></dd>
+					    <% end %>
+				    <% end %>
+				</dl>
+			<% else %>
+				<p>投稿がありません。</p>
+			<% end %>
+		</div>
+		<hr />
+		
+		<%= form_for @response, url: {:action => "create"},:method => "post" do |f| %>
+		  <%= f.submit "書き込む" %>
+		  <%= f.hidden_field :response_num, :value => @response_num %>
+		  <%= f.hidden_field :thread_id, :value => @thread_id %>
+		  <%= f.hidden_field :user_ipaddress, :value => @thread_id %>
+		  <label>名前：</label>
+		  <%= f.text_field :user_name %>
+		  <label>Mail：</label>
+		  <%= f.text_field :user_email %>
+		<ul>
+	  		<%= f.text_area :comment, size: "80x5" %>
+		</ul>
+		<% end %>
+	</div>
+
+
+
+<%# link_to 'Edit', edit_response_path(@response) %> |
 <%= link_to 'Back', responses_path %>

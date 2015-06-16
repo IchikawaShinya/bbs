@@ -1,30 +1,25 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: [:edit, :update, :destroy]
-  protect_from_forgery except: [:new]
+  before_action :set_response, only: [:show, :edit, :update, :destroy]
 
+  # GET /responses
+  # GET /responses.json
   def index
-    thread_id = 1
-    @responses = Response.where("thread_id = ?", thread_id)
-    
-    if @responses.length > 0
-      @response_num = @responses.length + 1
-    end
-    
+    @responses = Response.all
   end
-  
-  def new
-    @response = Response.new(params[:response])
+
+  # GET /responses/1
+  # GET /responses/1.json
+  def show
+    @response = Response.new
+    @thread_id = params[:id]
+    @responses = Response.where("thread_id = ?", @thread_id)
     
-    @response.attributes = {response_num: params[:response_num],
-                            thread_id: params[:thread_id],
-                            user_name: params[:user_name],
-                            user_email: params[:user_email],
-                            user_ipaddress: params[:user_ipaddress],
-                            comment: params[:comment]}
-    if @response.save
-      flash[:notice] = "投稿しました。"
-      # redirect_to :action => 'index'
-    end
+    @response_num = @responses.last.response_num + 1
+  end
+
+  # GET /responses/new
+  def new
+    @response = Response.new
   end
 
   # GET /responses/1/edit
@@ -34,16 +29,24 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
+    # binding.pry debug用コマンド
     @response = Response.new(response_params)
-
-    respond_to do |format|
-      if @response.save
-        format.html { redirect_to @response, notice: 'Response was successfully created.' }
-        format.json { render :show, status: :created, location: @response }
-      else
-        format.html { render :new }
-        format.json { render json: @response.errors, status: :unprocessable_entity }
+    
+    begin
+      Response.transaction do
+        respond_to do |format|
+          url = "/responses/" + params[:response][:thread_id]
+          if @response.save!
+            format.html { redirect_to url, notice: '投稿に成功しました。' }
+            format.json { render :show, status: :created, location: @response[:thread_id] }
+          else
+            format.html { redirect_to url, notice: '投稿に失敗しました。' }
+            format.json { render json: @response.errors, status: :unprocessable_entity }
+          end
+        end
       end
+    rescue => ex
+      return redirect_to "/responses/" + params[:response][:thread_id], notice: ex.message
     end
   end
 
@@ -79,6 +82,7 @@ class ResponsesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def response_params
-      params[:response]
+      # params[:response]
+      params.require(:response).permit(:response_num, :thread_id, :user_name, :user_email, :user_ipaddress, :comment)
     end
 end
