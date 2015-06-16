@@ -49,6 +49,7 @@ group :development, :test do
   gem 'capybara', '~> 2.0.3'
   # gem 'capybara-webkit'
   gem 'turnip'
+  gem 'pry-rails'
 end
 
 
