@@ -1,5 +1,5 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: [:show, :edit, :update, :destroy]
+  before_action :set_response, only: [:edit, :update, :destroy]
 
   # GET /responses
   # GET /responses.json
@@ -14,7 +14,10 @@ class ResponsesController < ApplicationController
     @thread_id = params[:id]
     @responses = Response.where("thread_id = ?", @thread_id)
     
-    @response_num = @responses.last.response_num + 1
+    @response_num = 1
+    unless @responses.blank?
+      @response_num = @responses.last.response_num + 1
+    end
   end
 
   # GET /responses/new
@@ -29,7 +32,7 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
-    # binding.pry debug用コマンド
+    # binding.pry // debug用コマンド
     @response = Response.new(response_params)
     
     begin
