@@ -24,7 +24,9 @@
 			<dd><%= f.text_field :delete_pass %></dd>
 		</dl>
 		-->
-		<%= request.env['REMOTE_ADDR'] %><br />
+		<%= request.env["HTTP_USER_AGENT"] %><br />
+		<%= request.env["REMOTE_ADDR"] %><br />
+		<%= request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip %><br />
 		<%= f.label 'カテゴリ：' %>
 		<%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %><br />
 		<%= f.label 'スレッド名：' %>
