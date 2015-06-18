@@ -1,3 +1,23 @@
 // Place all the styles related to the threadBoards controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+label,input {
+display: block;
+width: 150px;
+float: left;
+margin-bottom: 10px;
+}
+label {
+text-align: left;
+padding-right: 15px;
+}
+br { clear: left; }
+
+.new_thread {
+    padding: 5px;
+}
+
+.actions {
+  clear: both;
+}

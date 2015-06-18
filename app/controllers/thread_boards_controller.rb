@@ -5,6 +5,7 @@ class ThreadBoardsController < ApplicationController
   # GET /thread_boards.json
   def index
     @thread_boards = ThreadBoard.all
+    @thread_board = ThreadBoard.new
   end
 
   # GET /thread_boards/1
@@ -26,14 +27,20 @@ class ThreadBoardsController < ApplicationController
   def create
     @thread_board = ThreadBoard.new(thread_board_params)
 
-    respond_to do |format|
-      if @thread_board.save
-        format.html { redirect_to @thread_board, notice: 'Thread board was successfully created.' }
-        format.json { render :show, status: :created, location: @thread_board }
-      else
-        format.html { render :new }
-        format.json { render json: @thread_board.errors, status: :unprocessable_entity }
+    begin
+      ThreadBoard.transaction do
+        respond_to do |format|
+          if @thread_board.save
+            format.html { redirect_to @thread_board, notice: 'Thread board was successfully created.' }
+            format.json { render :show, status: :created, location: @thread_board }
+          else
+            format.html { render :new }
+            format.json { render json: @thread_board.errors, status: :unprocessable_entity }
+          end
+        end
       end
+    rescue => ex
+      notice = ex.message
     end
   end
 
@@ -64,7 +71,7 @@ class ThreadBoardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_thread_board
-      @thread_board = ThreadBoard.find(params[:id])
+      @thread_board = ThreadBoard.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
