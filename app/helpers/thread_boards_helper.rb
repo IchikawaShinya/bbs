@@ -1,0 +1,2 @@
+module ThreadBoardsHelper
+end

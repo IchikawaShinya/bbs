@@ -1,0 +1,17 @@
+<%= form_for(@thread_board) do |f| %>
+  <% if @thread_board.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@thread_board.errors.count, "error") %> prohibited this thread_board from being saved:</h2>
+
+      <ul>
+      <% @thread_board.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

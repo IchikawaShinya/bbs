@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :thread_boards
   resources :responses
   
   match "/responses/new" => 'responses#new', :via => [:get,:post]
