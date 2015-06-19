@@ -12,21 +12,7 @@
   <% end %>
 
 	<div class="new_thread">
-		<!--
-		<dl>
-			<dt><%= f.label 'カテゴリ：' %></dt>
-			<dd><%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %></dd>
-			
-			<dt><%= f.label 'スレッド名：' %></dt>
-			<dd><%= f.text_field :thread_name %></dd>
-			
-			<dt><%= f.label '削除用パスワード：' %></dt>
-			<dd><%= f.text_field :delete_pass %></dd>
-		</dl>
-		-->
-		<%= request.env["HTTP_USER_AGENT"] %><br />
-		<%= request.env["REMOTE_ADDR"] %><br />
-		<%= request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip %><br />
+		<%= f.hidden_field :user_ipaddress, :value => request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip %>
 		<%= f.label 'カテゴリ：' %>
 		<%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %><br />
 		<%= f.label 'スレッド名：' %>
