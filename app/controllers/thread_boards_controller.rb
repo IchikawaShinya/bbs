@@ -4,7 +4,7 @@ class ThreadBoardsController < ApplicationController
   # GET /thread_boards
   # GET /thread_boards.json
   def index
-    @thread_boards = ThreadBoard.all
+    @thread_boards = ThreadBoard.all.reorder(:category_id,:id)
     @thread_board = ThreadBoard.new
   end
 
@@ -31,8 +31,8 @@ class ThreadBoardsController < ApplicationController
       ThreadBoard.transaction do
         respond_to do |format|
           if @thread_board.save!
-            format.html { render :new, notice: 'スレッドの作成に成功しました。' }
-            format.json { render :show, status: :created, location: @thread_board }
+            format.html { redirect_to thread_boards_url, notice: 'スレッドの作成に成功しました。' }
+            format.json { render :index, status: :created, location: @thread_board }
           else
             format.html { render :new, notice: 'スレッドの作成に失敗しました。'  }
             format.json { render json: @thread_board.errors, status: :unprocessable_entity }
@@ -40,7 +40,8 @@ class ThreadBoardsController < ApplicationController
         end
       end
     rescue => ex
-      notice = ex.message
+      ActiveRecord::Rollback
+      return render :new, notice: ex.message
     end
   end
 
@@ -48,6 +49,7 @@ class ThreadBoardsController < ApplicationController
   # PATCH/PUT /thread_boards/1.json
   def update
     respond_to do |format|
+      # binding.pry
       if @thread_board.update(thread_board_params)
         format.html { redirect_to @thread_board, notice: 'Thread board was successfully updated.' }
         format.json { render :show, status: :ok, location: @thread_board }
@@ -61,11 +63,13 @@ class ThreadBoardsController < ApplicationController
   # DELETE /thread_boards/1
   # DELETE /thread_boards/1.json
   def destroy
+    
     @thread_board.destroy
     respond_to do |format|
       format.html { redirect_to thread_boards_url, notice: 'Thread board was successfully destroyed.' }
       format.json { head :no_content }
     end
+    
   end
 
   private

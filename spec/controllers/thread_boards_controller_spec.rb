@@ -24,11 +24,23 @@ RSpec.describe ThreadBoardsController, type: :controller do
   # ThreadBoard. As you add validations to ThreadBoard, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      "category_id" => "1",
+      "thread_name" => "新規スレッド",
+      "user_ipaddress" => "192.168.0.1",
+      "delete_pass" => "0000",
+    }
+    # skip("Add a hash of attributes valid for your model")
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      "category_id" => "",
+      "thread_name" => "",
+      "user_ipaddress" => "",
+      "delete_pass" => "",
+    }
+    # skip("Add a hash of attributes invalid for your model")
   }
 
   # This should return the minimal set of values that should be in the session
@@ -37,35 +49,38 @@ RSpec.describe ThreadBoardsController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all thread_boards as @thread_boards" do
-      thread_board = ThreadBoard.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:thread_boards)).to eq([thread_board])
+    # it "assigns all thread_boards as @thread_boards" do
+      # thread_board = ThreadBoard.create! valid_attributes
+      # get :index, {}, valid_session
+      # expect(assigns(:thread_boards)).to eq([thread_board])
+    # end
+    it '初期表示' do
+      assert_response :success
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested thread_board as @thread_board" do
-      thread_board = ThreadBoard.create! valid_attributes
-      get :show, {:id => thread_board.to_param}, valid_session
-      expect(assigns(:thread_board)).to eq(thread_board)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new thread_board as @thread_board" do
-      get :new, {}, valid_session
-      expect(assigns(:thread_board)).to be_a_new(ThreadBoard)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested thread_board as @thread_board" do
-      thread_board = ThreadBoard.create! valid_attributes
-      get :edit, {:id => thread_board.to_param}, valid_session
-      expect(assigns(:thread_board)).to eq(thread_board)
-    end
-  end
+  # describe "GET #show" do
+    # it "assigns the requested thread_board as @thread_board" do
+      # thread_board = ThreadBoard.create! valid_attributes
+      # get :show, {:id => thread_board.to_param}, valid_session
+      # expect(assigns(:thread_board)).to eq(thread_board)
+    # end
+  # end
+# 
+  # describe "GET #new" do
+    # it "assigns a new thread_board as @thread_board" do
+      # get :new, {}, valid_session
+      # expect(assigns(:thread_board)).to be_a_new(ThreadBoard)
+    # end
+  # end
+# 
+  # describe "GET #edit" do
+    # it "assigns the requested thread_board as @thread_board" do
+      # thread_board = ThreadBoard.create! valid_attributes
+      # get :edit, {:id => thread_board.to_param}, valid_session
+      # expect(assigns(:thread_board)).to eq(thread_board)
+    # end
+  # end
 
   describe "POST #create" do
     context "with valid params" do
@@ -81,9 +96,10 @@ RSpec.describe ThreadBoardsController, type: :controller do
         expect(assigns(:thread_board)).to be_persisted
       end
 
-      it "redirects to the created thread_board" do
+      it "re-renders the 'new' template" do
         post :create, {:thread_board => valid_attributes}, valid_session
-        expect(response).to redirect_to(ThreadBoard.last)
+        # expect(response).to redirect_to(ThreadBoard.last)
+        expect(response).to render_template("index")
       end
     end
 
@@ -93,67 +109,68 @@ RSpec.describe ThreadBoardsController, type: :controller do
         expect(assigns(:thread_board)).to be_a_new(ThreadBoard)
       end
 
-      it "re-renders the 'new' template" do
+      it "redirects to the created thread_board" do
         post :create, {:thread_board => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        # expect(response).to render_template("new")
+        expect(response).to redirect_to(ThreadBoard.last)
       end
     end
   end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested thread_board" do
-        thread_board = ThreadBoard.create! valid_attributes
-        put :update, {:id => thread_board.to_param, :thread_board => new_attributes}, valid_session
-        thread_board.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "assigns the requested thread_board as @thread_board" do
-        thread_board = ThreadBoard.create! valid_attributes
-        put :update, {:id => thread_board.to_param, :thread_board => valid_attributes}, valid_session
-        expect(assigns(:thread_board)).to eq(thread_board)
-      end
-
-      it "redirects to the thread_board" do
-        thread_board = ThreadBoard.create! valid_attributes
-        put :update, {:id => thread_board.to_param, :thread_board => valid_attributes}, valid_session
-        expect(response).to redirect_to(thread_board)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns the thread_board as @thread_board" do
-        thread_board = ThreadBoard.create! valid_attributes
-        put :update, {:id => thread_board.to_param, :thread_board => invalid_attributes}, valid_session
-        expect(assigns(:thread_board)).to eq(thread_board)
-      end
-
-      it "re-renders the 'edit' template" do
-        thread_board = ThreadBoard.create! valid_attributes
-        put :update, {:id => thread_board.to_param, :thread_board => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested thread_board" do
-      thread_board = ThreadBoard.create! valid_attributes
-      expect {
-        delete :destroy, {:id => thread_board.to_param}, valid_session
-      }.to change(ThreadBoard, :count).by(-1)
-    end
-
-    it "redirects to the thread_boards list" do
-      thread_board = ThreadBoard.create! valid_attributes
-      delete :destroy, {:id => thread_board.to_param}, valid_session
-      expect(response).to redirect_to(thread_boards_url)
-    end
-  end
+# 
+  # describe "PUT #update" do
+    # context "with valid params" do
+      # let(:new_attributes) {
+        # skip("Add a hash of attributes valid for your model")
+      # }
+# 
+      # it "updates the requested thread_board" do
+        # thread_board = ThreadBoard.create! valid_attributes
+        # put :update, {:id => thread_board.to_param, :thread_board => new_attributes}, valid_session
+        # thread_board.reload
+        # skip("Add assertions for updated state")
+      # end
+# 
+      # it "assigns the requested thread_board as @thread_board" do
+        # thread_board = ThreadBoard.create! valid_attributes
+        # put :update, {:id => thread_board.to_param, :thread_board => valid_attributes}, valid_session
+        # expect(assigns(:thread_board)).to eq(thread_board)
+      # end
+# 
+      # it "redirects to the thread_board" do
+        # thread_board = ThreadBoard.create! valid_attributes
+        # put :update, {:id => thread_board.to_param, :thread_board => valid_attributes}, valid_session
+        # expect(response).to redirect_to(thread_board)
+      # end
+    # end
+# 
+    # context "with invalid params" do
+      # it "assigns the thread_board as @thread_board" do
+        # thread_board = ThreadBoard.create! valid_attributes
+        # put :update, {:id => thread_board.to_param, :thread_board => invalid_attributes}, valid_session
+        # expect(assigns(:thread_board)).to eq(thread_board)
+      # end
+# 
+      # it "re-renders the 'edit' template" do
+        # thread_board = ThreadBoard.create! valid_attributes
+        # put :update, {:id => thread_board.to_param, :thread_board => invalid_attributes}, valid_session
+        # expect(response).to render_template("edit")
+      # end
+    # end
+  # end
+# 
+  # describe "DELETE #destroy" do
+    # it "destroys the requested thread_board" do
+      # thread_board = ThreadBoard.create! valid_attributes
+      # expect {
+        # delete :destroy, {:id => thread_board.to_param}, valid_session
+      # }.to change(ThreadBoard, :count).by(-1)
+    # end
+# 
+    # it "redirects to the thread_boards list" do
+      # thread_board = ThreadBoard.create! valid_attributes
+      # delete :destroy, {:id => thread_board.to_param}, valid_session
+      # expect(response).to redirect_to(thread_boards_url)
+    # end
+  # end
 
 end
