@@ -1,6 +1,7 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Listing Thread Boards</h1>
+
+<p id="notice"><%= notice %></p>
 
 <table>
   <thead>
@@ -12,7 +13,7 @@
   <tbody>
     <% @thread_boards.each do |thread_board| %>
       <tr>
-        <td><%= link_to 'Show', thread_board %></td>
+        <td><%= link_to thread_board[:thread_name], '/responses/'+thread_board[:thread_id].to_s %></td>
         <td><%= link_to 'Edit', edit_thread_board_path(thread_board) %></td>
         <td><%= link_to 'Destroy', thread_board, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -21,5 +22,4 @@
 </table>
 
 <br>
-<%= render 'form' %>
 <%= link_to 'New Thread board', new_thread_board_path %>

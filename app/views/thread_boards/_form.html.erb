@@ -11,17 +11,19 @@
     </div>
   <% end %>
 
-	<div class="new_thread">
-		<%= f.hidden_field :user_ipaddress, :value => request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip %>
-		<%= f.label 'カテゴリ：' %>
-		<%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %><br />
-		<%= f.label 'スレッド名：' %>
-		<%= f.text_field :thread_name %><br />
-		<%= f.label '削除用パスワード：' %>
-		<%= f.text_field :delete_pass %>
-	  	
-		<div class="actions">
-			<%= f.submit '新規スレッド作成' %>
-		</div>
-	</div>
+  <div class="new_thread">
+    <%= f.hidden_field :user_ipaddress, :value => request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip %>
+    <%= f.label 'カテゴリ：' %>
+    <%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %><br />
+    <%= f.label 'スレッド名：' %>
+    <%= f.text_field :thread_name, :value => @thread_board[:thread_name] %><br />
+    <%= f.label '削除用パスワード：' %>
+    <%= f.password_field :delete_pass, :value => @thread_board[:delete_pass] %>
+      	
+    <div class="actions">
+      <% buttomName = "新規スレッド作成" %>
+      <% if params[:action] == "edit" %><% buttomName = "スレッド情報更新" %><% end %>
+      <%= f.submit buttomName, data: { disable_with: "送信中..." } %>
+    </div>
+  </div>
 <% end %>
