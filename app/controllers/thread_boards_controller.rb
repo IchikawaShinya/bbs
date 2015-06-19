@@ -1,5 +1,5 @@
 class ThreadBoardsController < ApplicationController
-  before_action :set_thread_board, only: [:show, :edit, :update, :destroy]
+  before_action :set_thread_board, only: [:edit, :update, :destroy]
 
   # GET /thread_boards
   # GET /thread_boards.json
@@ -30,11 +30,11 @@ class ThreadBoardsController < ApplicationController
     begin
       ThreadBoard.transaction do
         respond_to do |format|
-          if @thread_board.save
-            format.html { redirect_to @thread_board, notice: 'Thread board was successfully created.' }
+          if @thread_board.save!
+            format.html { render :new, notice: 'スレッドの作成に成功しました。' }
             format.json { render :show, status: :created, location: @thread_board }
           else
-            format.html { render :new }
+            format.html { render :new, notice: 'スレッドの作成に失敗しました。'  }
             format.json { render json: @thread_board.errors, status: :unprocessable_entity }
           end
         end
@@ -76,6 +76,7 @@ class ThreadBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def thread_board_params
-      params[:thread_board]
+      # params[:thread_board]
+      params.require(:thread_board).permit(:category_id, :thread_name, :thread_id, :user_ipaddress, :delete_pass)
     end
 end
