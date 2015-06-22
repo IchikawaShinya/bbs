@@ -96,10 +96,9 @@ RSpec.describe ThreadBoardsController, type: :controller do
         expect(assigns(:thread_board)).to be_persisted
       end
 
-      it "re-renders the 'new' template" do
+      it "redirects to the created thread_board" do
         post :create, {:thread_board => valid_attributes}, valid_session
-        # expect(response).to redirect_to(ThreadBoard.last)
-        expect(response).to render_template("index")
+        expect(response).to redirect_to(thread_boards_url)
       end
     end
 
@@ -109,10 +108,9 @@ RSpec.describe ThreadBoardsController, type: :controller do
         expect(assigns(:thread_board)).to be_a_new(ThreadBoard)
       end
 
-      it "redirects to the created thread_board" do
+      it "re-renders the 'new' template" do
         post :create, {:thread_board => invalid_attributes}, valid_session
-        # expect(response).to render_template("new")
-        expect(response).to redirect_to(ThreadBoard.last)
+        expect(response).to render_template("new")
       end
     end
   end
