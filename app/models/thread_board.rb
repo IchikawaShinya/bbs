@@ -5,5 +5,5 @@ class ThreadBoard < ActiveRecord::Base
   validates :thread_name, presence: { message: "が入力されていません。" }
   validates :delete_pass, presence: { message: "が入力されていません。" }
   
-  default_scope -> { order("id ASC") }
+  default_scope -> { order("thread_boards.id ASC") }
 end
