@@ -1,34 +1,30 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= "掲示板"+ @thread_id %></h1>
+<p id="notice"><%= notice %></p>
+<div>
+	<hr />
 	<div>
-		<hr />
-		<div>
-			<% unless @responses.blank? %>
-				<dl>
-				    <% @responses.each do |response| %>
-				    	<% unless response.delete_flg %>
-							<dt><%= response.response_num %>：
-							<% if response.user_email.blank? %>
-								<font color="green"><%= response.user_name %></font>
-							<% else %>
-								<a href="mailto:<%= response.user_email %>"><font color="blue"><%= response.user_name %></font></a>
-							<% end %>
-							：<%= response.created_at.strftime("%Y/%m/%d %H:%M:%S") %> ID:<%= response.user_ipaddress %></dt>
-							<dd><%= response.comment %></dd>
-					    <% end %>
+		<% unless @responses.blank? %>
+			<dl>
+			    <% @responses.each do |response| %>
+			    	<% unless response.delete_flg %>
+						<dt><%= response.response_num %>：
+						<% if response.user_email.blank? %>
+							<font color="green"><%= response.user_name %></font>
+						<% else %>
+							<a href="mailto:<%= response.user_email %>"><font color="blue"><%= response.user_name %></font></a>
+						<% end %>
+						：<%= response.created_at.strftime("%Y/%m/%d %H:%M:%S") %> ID:<%= response.user_ipaddress %></dt>
+						<dd><%= response.comment %></dd>
 				    <% end %>
-				</dl>
-			<% else %>
-				<p>投稿がありません。</p>
-			<% end %>
-		</div>
-		<hr />
-		
-		<%= render 'form' %>
+			    <% end %>
+			</dl>
+		<% else %>
+			<p>投稿がありません。</p>
+		<% end %>
 	</div>
-
-
-
+	<hr />
+	
+	<%= render 'form' %>
+</div>
 <%# link_to 'Edit', edit_response_path(@response) %> |
 <%= link_to 'Back', responses_path %>
