@@ -1,5 +1,5 @@
 class Response < ActiveRecord::Base
-  validates :comment, presence: { message: "コメントが入力されていません。" }
+  validates :comment, presence: { message: "が入力されていません。" }
   
-  default_scope -> { order("response_num ASC") }
+  default_scope -> { order("responses.response_num ASC") }
 end

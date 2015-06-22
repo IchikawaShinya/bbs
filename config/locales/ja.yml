@@ -4,6 +4,7 @@ ja:
     category_id: カテゴリ
     thread_name: スレッド名
     delete_pass: 削除用パスワード
+    comment: コメント
   date:
     abbr_day_names:
     - 日
