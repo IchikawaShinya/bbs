@@ -1,8 +1,14 @@
-<h1>New Thread Board</h1>
+<div class="thread_boards">
+	<h1>New Thread Board</h1>
 
-<p id="notice"><%= notice %></p>
-
-<%= render 'form' %>
-
-<br>
-<%= link_to 'Back', thread_boards_path %>
+	<p id="notice"><%= notice %></p>
+	
+	<div>
+		<%= render 'form' %>
+	</div>
+	
+	
+	<div class="clear">
+		<%= link_to '戻る', thread_boards_path %>
+	</div>
+</div>

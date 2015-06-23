@@ -1,10 +1,12 @@
 class ThreadBoardsController < ApplicationController
-  before_action :set_thread_board, only: [:edit, :update, :destroy]
+  before_action :set_thread_board, only: [:show,:edit, :update, :destroy]
 
   # GET /thread_boards
   # GET /thread_boards.json
   def index
-    @thread_boards = ThreadBoard.all.reorder(:category_id,:id)
+    @thread_boards = ThreadBoard.all
+    # @thread_boards = ThreadBoard.all.reorder(:category_id,:id)
+    
     @thread_board = ThreadBoard.new
   end
 
