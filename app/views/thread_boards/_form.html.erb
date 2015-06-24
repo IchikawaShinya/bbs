@@ -13,17 +13,27 @@
 
   <div class="new_thread">
     <%= f.hidden_field :user_ipaddress, :value => request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip %>
-    <%= f.label 'カテゴリ：' %>
-    <%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %><br />
-    <%= f.label 'スレッド名：' %>
-    <%= f.text_field :thread_name, :value => @thread_board[:thread_name] %><br />
-    <%= f.label '削除用パスワード：' %>
-    <%= f.password_field :delete_pass, :value => @thread_board[:delete_pass] %>
-      	
-    <div class="actions">
-      <% buttomName = "新規スレッド作成" %>
-      <% if params[:action] == "edit" %><% buttomName = "スレッド情報更新" %><% end %>
-      <%= f.submit buttomName, data: { disable_with: "送信中..." } %>
-    </div>
+    
+    <table>
+    	<tr>
+    		<th><%= f.label 'カテゴリ：', :class => 'thread_input thread_label' %></th>
+    		<td><%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %></td>
+    	</tr>
+    	<tr>
+    		<th><%= f.label 'スレッド名：', :class => 'thread_input thread_label' %></th>
+    		<td><%= f.text_field :thread_name, :value => @thread_board[:thread_name], :class => 'thread_input thread_label' %></td>
+		</tr>
+    	<tr>
+    		<th><%= f.label '削除用パスワード：', :class => 'thread_input thread_label' %></th>
+    		<td><%= f.password_field :delete_pass, :value => @thread_board[:delete_pass], :class => 'thread_input thread_label' %></td>
+    	</tr>
+    	<tr>
+    		<th class="thread_btm" colspan="2">
+				<% buttomName = "新規スレッド作成" %>
+				<% if params[:action] == "edit" %><% buttomName = "スレッド情報更新" %><% end %>
+				<%= f.submit buttomName, data: { disable_with: "送信中..." } %>
+    		</th>
+    	</tr>
+    </table>
   </div>
 <% end %>

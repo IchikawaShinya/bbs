@@ -1,28 +1,24 @@
 <div class="thread_boards">
 	<p id="notice"><%= notice %></p>
 	
-	<div class="new_thread_link">
-		<table class="thread_list">
-			<thead>
-				<tr>
-				  <th>スレッド一覧</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-			      	<td>
-					    <%# @thread_board do %>
-					        <%= link_to '見る', '/responses/'+@thread_board[:thread_id].to_s %>
-					        <%= link_to '編集', edit_thread_board_path(@thread_board) %>
-					        <%= link_to '削除', @thread_board, method: :delete, data: { confirm: 'Are you sure?' } %>
-					    <%# end %>
-				    </td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<table class="thread_list">
+		<thead>
+			<tr>
+			  <th>スレッド詳細</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+		      	<td>
+			        <%= link_to '見る', '/responses/'+@thread_id.to_s %>
+			        <%= link_to '編集', edit_thread_board_path(@thread_board) %>
+			        <%= link_to '削除', @thread_board, method: :delete, data: { confirm: 'Are you sure?' } %>
+			    </td>
+			</tr>
+		</tbody>
+	</table>
 	
-	<div class="clear">
+	<div class="new_thread_link">
 		<%= link_to '戻る', thread_boards_path %>
 	</div>
 </div>

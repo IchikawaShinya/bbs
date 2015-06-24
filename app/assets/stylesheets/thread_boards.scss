@@ -2,23 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div.thread_boards label,input {
+.thread_input {
 display: block;
 width: 150px;
 float: left;
 margin-bottom: 10px;
 }
-div.thread_boards input {
-display: block;
-width: 150px;
-float: left;
-margin-bottom: 10px;
-}
-div.thread_boards label {
+.thread_label {
 text-align: left;
 padding-right: 15px;
 }
-div.thread_boards br { clear: left; }
+
+.clear {
+  clear: both;
+}
 
 .new_thread {
     padding: 5px;
@@ -40,4 +37,7 @@ div.thread_boards br { clear: left; }
 .thread_list  a{
   padding-right: 5px;
 }
-  
+
+.thread_btm {
+  text-align: left;
+}
