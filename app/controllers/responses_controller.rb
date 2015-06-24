@@ -1,5 +1,6 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: [:edit, :update, :destroy]
+  before_action :set_response, only: [:edit, :update]
 
   # GET /responses
   # GET /responses.json
@@ -11,8 +12,8 @@ class ResponsesController < ApplicationController
   # GET /responses/1.json
   def show
     @response = Response.new
-    @thread_id = params[:id]
-    @responses = Response.where("thread_id = ?", @thread_id)
+    @thread_boards_id = params[:id]
+    @responses = Response.where("thread_boards_id = ?", @thread_boards_id)
     
     @response_num = 1
     unless @responses.blank?
@@ -38,10 +39,10 @@ class ResponsesController < ApplicationController
     begin
       Response.transaction do
         respond_to do |format|
-          url = "/responses/" + params[:response][:thread_id]
+          url = "/responses/" + params[:response][:thread_board_id]
           if @response.save!
             format.html { redirect_to url, notice: '投稿に成功しました。' }
-            format.json { render :show, status: :created, location: @response[:thread_id] }
+            format.json { render :show, status: :created, location: @response[:thread_board_id] }
           else
             format.html { redirect_to url, notice: '投稿に失敗しました。' }
             format.json { render json: @response.errors, status: :unprocessable_entity }
@@ -49,7 +50,7 @@ class ResponsesController < ApplicationController
         end
       end
     rescue => ex
-      return redirect_to "/responses/" + params[:response][:thread_id], notice: ex.message
+      return redirect_to "/responses/" + params[:response][:thread_board_id], notice: ex.message
     end
   end
 
@@ -86,6 +87,6 @@ class ResponsesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def response_params
       # params[:response]
-      params.require(:response).permit(:response_num, :thread_id, :user_name, :user_email, :user_ipaddress, :comment)
+      params.require(:response).permit(:response_num, :thread_board_id, :user_name, :user_email, :user_ipaddress, :comment)
     end
 end

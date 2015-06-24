@@ -14,7 +14,7 @@
 	<div class="actions">
 		<%= f.submit "書き込む", data: { disable_with: "送信中..." } %>
 		<%= f.hidden_field :response_num, :value => @response_num %>
-		<%= f.hidden_field :thread_id, :value => @thread_id %>
+		<%= f.hidden_field :thread_board_id, :value => @thread_boards_id %>
 		<%= f.hidden_field :user_ipaddress, :value => request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip %>
 		<%= f.label '名前：' %>
 		<%= f.text_field :user_name, :value => @response[:user_name] %>
