@@ -70,6 +70,7 @@ class ThreadBoardsController < ApplicationController
     begin
       # @thread_board.destroy
       @thread_board.soft_destroy!
+      Response.soft_destroyed
       respond_to do |format|
         format.html { redirect_to thread_boards_url, notice: 'Thread board was successfully destroyed.' }
         format.json { head :no_content }

@@ -1,19 +1,19 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: [:edit, :update, :destroy]
-  before_action :set_response, only: [:edit, :update]
 
   # GET /responses
   # GET /responses.json
   def index
     @responses = Response.all
+    @response = Response.new
   end
 
   # GET /responses/1
   # GET /responses/1.json
   def show
     @response = Response.new
-    @thread_boards_id = params[:id]
-    @responses = Response.where("thread_boards_id = ?", @thread_boards_id)
+    @thread_board_id = params[:id]
+    @responses = Response.where("thread_board_id = ?", @thread_board_id)
     
     @response_num = 1
     unless @responses.blank?
@@ -35,11 +35,11 @@ class ResponsesController < ApplicationController
   def create
     # binding.pry // debug用コマンド
     @response = Response.new(response_params)
+    url = "/responses/" + params[:response][:thread_board_id]
     
     begin
       Response.transaction do
         respond_to do |format|
-          url = "/responses/" + params[:response][:thread_board_id]
           if @response.save!
             format.html { redirect_to url, notice: '投稿に成功しました。' }
             format.json { render :show, status: :created, location: @response[:thread_board_id] }
@@ -50,7 +50,7 @@ class ResponsesController < ApplicationController
         end
       end
     rescue => ex
-      return redirect_to "/responses/" + params[:response][:thread_board_id], notice: ex.message
+      return redirect_to url, notice: ex.message
     end
   end
 
@@ -71,17 +71,22 @@ class ResponsesController < ApplicationController
   # DELETE /responses/1
   # DELETE /responses/1.json
   def destroy
-    @response.destroy
-    respond_to do |format|
-      format.html { redirect_to responses_url, notice: 'Response was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @response.soft_destroy!
+      respond_to do |format|
+        format.html { redirect_to responses_url, notice: 'Response was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    rescue => ex
+      ActiveRecord::Rollback
+      return redirect_to responses_url, notice: ex.message
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
-      @response = Response.find(params[:id])
+      @response = Response.without_soft_destroyed.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

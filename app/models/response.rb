@@ -1,5 +1,7 @@
 class Response < ActiveRecord::Base
   soft_deletable dependent_associations: [:thread_boards]
+  soft_deletable :column => :deleted_at
+  
   belongs_to :thread_boards
   validates :comment, presence: { message: "が入力されていません。" }
   
