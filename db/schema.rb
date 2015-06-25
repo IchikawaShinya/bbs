@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624083701) do
+ActiveRecord::Schema.define(version: 20150624092619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150624083701) do
     t.boolean  "delete_flg",      default: false,   null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.datetime "deleted_at"
   end
 
   add_index "responses", ["response_num", "thread_board_id"], name: "index_responses_on_response_num_and_thread_board_id", unique: true, using: :btree
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150624083701) do
     t.boolean  "delete_flg",     default: false, null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.datetime "deleted_at"
   end
 
 end

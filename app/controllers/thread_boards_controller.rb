@@ -4,7 +4,7 @@ class ThreadBoardsController < ApplicationController
   # GET /thread_boards
   # GET /thread_boards.json
   def index
-    @thread_boards = ThreadBoard.all
+    @thread_boards = ThreadBoard.without_soft_destroyed.all
     # @thread_boards = ThreadBoard.all.reorder(:category_id,:id)
     
     @thread_board = ThreadBoard.new
@@ -13,6 +13,7 @@ class ThreadBoardsController < ApplicationController
   # GET /thread_boards/1
   # GET /thread_boards/1.json
   def show
+      @thread_id = (params[:id])
   end
 
   # GET /thread_boards/new
@@ -66,10 +67,16 @@ class ThreadBoardsController < ApplicationController
   # DELETE /thread_boards/1.json
   def destroy
     
-    @thread_board.destroy
-    respond_to do |format|
-      format.html { redirect_to thread_boards_url, notice: 'Thread board was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      # @thread_board.destroy
+      @thread_board.soft_destroy!
+      respond_to do |format|
+        format.html { redirect_to thread_boards_url, notice: 'Thread board was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    rescue => ex
+      ActiveRecord::Rollback
+      return redirect_to thread_boards_url, notice: ex.message
     end
     
   end
@@ -77,7 +84,7 @@ class ThreadBoardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_thread_board
-      @thread_board = ThreadBoard.find_by_id(params[:id])
+      @thread_board = ThreadBoard.without_soft_destroyed.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

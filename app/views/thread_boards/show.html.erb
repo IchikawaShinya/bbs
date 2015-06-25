@@ -10,9 +10,14 @@
 		<tbody>
 			<tr>
 		      	<td>
-			        <%= link_to '見る', '/responses/'+@thread_id.to_s %>
-			        <%= link_to '編集', edit_thread_board_path(@thread_board) %>
-			        <%= link_to '削除', @thread_board, method: :delete, data: { confirm: 'Are you sure?' } %>
+		      		<% unless @thread_board.blank? %>
+				        <%= link_to '見る', '/responses/'+@thread_id.to_s %>
+				        <%= link_to '編集', edit_thread_board_path(@thread_board) %>
+				        <%= link_to '削除', @thread_board, method: :delete, data: { confirm: 'Are you sure?' } %>
+		      		<% else %>
+		      			<p>削除されたスレッドです</p>
+		      		<% end %>
+		      		
 			    </td>
 			</tr>
 		</tbody>

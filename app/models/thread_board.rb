@@ -1,4 +1,5 @@
 class ThreadBoard < ActiveRecord::Base
+  soft_deletable :column => :deleted_at
   has_many :responses, dependent: :destroy
   
   validates :category_id, presence: { message: "が選択されていません。" }
