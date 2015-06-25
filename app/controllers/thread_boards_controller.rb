@@ -1,5 +1,6 @@
 class ThreadBoardsController < ApplicationController
   before_action :set_thread_board, only: [:show,:edit, :update, :destroy]
+  after_action :soft_destroy_with_children, only: [:destroy]
 
   # GET /thread_boards
   # GET /thread_boards.json
@@ -54,7 +55,7 @@ class ThreadBoardsController < ApplicationController
     respond_to do |format|
       # binding.pry
       if @thread_board.update(thread_board_params)
-        format.html { redirect_to @thread_board, notice: 'Thread board was successfully updated.' }
+        format.html { redirect_to @thread_board, notice: 'スレッド情報の更新に成功しました。' }
         format.json { render :show, status: :ok, location: @thread_board }
       else
         format.html { render :edit }
@@ -68,12 +69,15 @@ class ThreadBoardsController < ApplicationController
   def destroy
     
     begin
-      # @thread_board.destroy
-      @thread_board.soft_destroy!
-      Response.soft_destroyed
-      respond_to do |format|
-        format.html { redirect_to thread_boards_url, notice: 'Thread board was successfully destroyed.' }
-        format.json { head :no_content }
+      ThreadBoard.transaction do
+        # @thread_board.destroy
+        @thread_board.soft_destroy!
+        # @thread_board.responses.soft_destroy!
+        # Response.soft_destroyed
+        respond_to do |format|
+          format.html { redirect_to thread_boards_url, notice: 'スレッドの削除に成功しました。' }
+          format.json { head :no_content }
+        end
       end
     rescue => ex
       ActiveRecord::Rollback
@@ -92,5 +96,13 @@ class ThreadBoardsController < ApplicationController
     def thread_board_params
       # params[:thread_board]
       params.require(:thread_board).permit(:category_id, :thread_name, :thread_id, :user_ipaddress, :delete_pass)
+    end
+    
+    def soft_destroy_with_children
+      if @thread_board.soft_destroyed?
+        @thread_board.responses.each do |child|
+          child.soft_destroy!
+        end
+      end
     end
 end
