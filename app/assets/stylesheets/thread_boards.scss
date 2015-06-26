@@ -17,20 +17,29 @@ padding-right: 15px;
   clear: both;
 }
 
+.thread_boards {
+  padding: 5px 15px;
+}
+
 .new_thread {
-    padding: 5px;
+    padding: 5px 0px;
 }
 
 .new_thread_link {
   margin: 15px 27px;
 }
 
+.thread_link {
+    padding: 10px 0px;
+}
+
+
 .thread_list {
   background-color: #CCFFCC;
   border: 1px;
   border-collapse: separate;
   border-spacing: 7px;
-  width: 95%;
+  width: 100%;
   margin: auto;
 }
 
