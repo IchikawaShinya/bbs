@@ -12,8 +12,12 @@
 		      	<td>
 		      		<% unless @thread_board.blank? %>
 				        <%= link_to '見る', '/responses/'+@thread_id.to_s %>
-				        <%= link_to '編集', edit_thread_board_path(@thread_board) %>
-				        <%= link_to '削除', @thread_board, method: :delete, data: { confirm: 'Are you sure?' } %>
+				        
+						<%= form_tag(edit_thread_board_path(@thread_board), :name => "edit", :id => "edit") do %>
+					        <%= render 'pass' %>
+					        <%= submit_tag '編集', data: { disable_with: "送信中..." } %>
+					        <%= submit_tag '削除', id: :delete, name: :delete, data: { confirm: 'Are you sure?',disable_with: "送信中..." }, :onclick => ("change_action('edit','10/delete');") %>
+						<% end %>
 		      		<% else %>
 		      			<p>削除されたスレッドです</p>
 		      		<% end %>
@@ -23,7 +27,7 @@
 		</tbody>
 	</table>
 	
-	<div class="new_thread_link">
+	<div class="thread_link">
 		<%= link_to '戻る', thread_boards_path %>
 	</div>
 </div>

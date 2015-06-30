@@ -1,6 +1,7 @@
 class ThreadBoardsController < ApplicationController
-  before_action :set_thread_board, only: [:show,:edit, :update, :destroy]
+  before_action :set_thread_board, only: [:show, :edit, :update, :destroy]
   after_action :soft_destroy_with_children, only: [:destroy]
+  before_action :check_pass, only: [:edit, :destroy]
 
   # GET /thread_boards
   # GET /thread_boards.json
@@ -24,6 +25,9 @@ class ThreadBoardsController < ApplicationController
 
   # GET /thread_boards/1/edit
   def edit
+    unless @pass_flg
+      redirect_to @thread_board, notice: 'パスワードが間違っています。(edit)'
+    end
   end
 
   # POST /thread_boards
@@ -53,7 +57,7 @@ class ThreadBoardsController < ApplicationController
   # PATCH/PUT /thread_boards/1.json
   def update
     respond_to do |format|
-      # binding.pry
+      binding.pry
       if @thread_board.update(thread_board_params)
         format.html { redirect_to @thread_board, notice: 'スレッド情報の更新に成功しました。' }
         format.json { render :show, status: :ok, location: @thread_board }
@@ -67,21 +71,24 @@ class ThreadBoardsController < ApplicationController
   # DELETE /thread_boards/1
   # DELETE /thread_boards/1.json
   def destroy
-    
-    begin
-      ThreadBoard.transaction do
-        # @thread_board.destroy
-        @thread_board.soft_destroy!
-        # @thread_board.responses.soft_destroy!
-        # Response.soft_destroyed
-        respond_to do |format|
-          format.html { redirect_to thread_boards_url, notice: 'スレッドの削除に成功しました。' }
-          format.json { head :no_content }
+    if @pass_flg
+      begin
+        ThreadBoard.transaction do
+          # @thread_board.destroy
+          @thread_board.soft_destroy!
+          # @thread_board.responses.soft_destroy!
+          # Response.soft_destroyed
+          respond_to do |format|
+            format.html { redirect_to thread_boards_url, notice: 'スレッドの削除に成功しました。' }
+            format.json { head :no_content }
+          end
         end
+      rescue => ex
+        ActiveRecord::Rollback
+        return redirect_to thread_boards_url, notice: ex.message
       end
-    rescue => ex
-      ActiveRecord::Rollback
-      return redirect_to thread_boards_url, notice: ex.message
+    else
+      redirect_to @thread_board, notice: 'パスワードが間違っています。'
     end
     
   end
@@ -102,6 +109,15 @@ class ThreadBoardsController < ApplicationController
       if @thread_board.soft_destroyed?
         @thread_board.responses.each do |child|
           child.soft_destroy!
+        end
+      end
+    end
+    
+    def check_pass
+      @pass_flg = false
+      unless params[:confirm_pass].blank?
+        if @thread_board[:delete_pass] == params[:confirm_pass]
+          @pass_flg = true
         end
       end
     end

@@ -14,3 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// フォームアクション変更
+function change_action(form_name,action_name) {
+	$("#"+form_name).attr('action', action_name);
+}
