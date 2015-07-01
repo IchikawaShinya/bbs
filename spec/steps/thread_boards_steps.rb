@@ -8,9 +8,34 @@ step %(:textと表示されている) do |text|
   expect(page).to have_content(text)
 end
 
+step %(:textが:cnt個表示されている) do |text, cnt|
+  expect(page).to have_content(text, count: cnt)
+end
+
   #表示テキスト不在確認
 step %(:textと表示されていない) do |text|
   expect(page).not_to have_content(text)
+end
+
+step %(アクセス表示権限エラーが出ていない) do
+  expect(page).not_to have_content("リンク先のページを表示する権限がありません")
+end
+
+step %(アクセス表示権限エラーが出ていない) do
+  expect(page).not_to have_content("リンク先のページを表示する権限がありません")
+end
+
+step %(CSVファイルが出力される) do
+  expect(page.response_headers['Content-Type']).to eq 'text/csv'
+  expect(CSV.parse(page.body)).to be_a(Array)
+end
+
+step %(ファイル:filenameがダウンロードされる) do |filename|
+  expect(page.response_headers['Content-Disposition']).to include(%(filename="#{filename}"))
+end
+
+step %(セレクトボックス:selectboxに:itemがある) do |selectbox, item|
+  expect(page).to have_select(selectbox, with_options: item)
 end
 
 ## 操作用ステップ
@@ -42,9 +67,22 @@ step %(:textボタンをクリックする) do |text|
   click_button text
 end
 
+step %(:n番目の:textボタンをクリックする) do |n, text|
+  n = n.to_i - 1
+  all(:link_or_button, text)[n].click
+end
+
   # フィールドに文字列を入力する |fieldはモデル[属性]の形式
 step %(:fieldに:valueを設定する) do |field, value|
   fill_in field, with: value
+end
+
+step %(:n番目の:fieldに:valueを設定する) do |n, field, value|
+  fill_in field, with: value
+end
+
+step %(:optionオプションの:valueを選択する) do |option, value|
+  select value, from: option
 end
 
   # ドロップダウンボックスを選択 (textはボタン文字列かid)
