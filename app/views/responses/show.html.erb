@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 <div>
 	<hr />
-	<div>
+	<div class="response">
 		<% unless @responses.blank? %>
 			<dl>
 			    <% @responses.each do |response| %>
@@ -15,8 +15,8 @@
 						<% end %>
 						：<%= response.created_at.strftime("%Y/%m/%d %H:%M:%S") %> 
 						<!--ID:<%= response.user_ipaddress %></dt> -->
-						<%= link_to '削除', response, method: :delete, data: { confirm: 'Are you sure?' } %>
-						<dd><%= response.comment %></dd>
+						<%# link_to '削除', response, method: :delete, data: { confirm: 'Are you sure?' } %>
+						<dd><%= simple_format(h(response.comment)) %></dd>
 				    <% end %>
 			    <% end %>
 			</dl>
@@ -25,8 +25,6 @@
 		<% end %>
 	</div>
 	<hr />
-	
 	<%= render 'form' %>
 </div>
-<%# link_to 'Edit', edit_response_path(@response) %> |
 <%= link_to 'Back', responses_path %>
