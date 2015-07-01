@@ -32,6 +32,10 @@ step %(:n番目の:textリンクをクリックする) do |n, text|
   all(:link_or_button, text)[n].click
 end
 
+step %(:textの:formが表示されている) do |text|
+  link text
+end
+
   #ボタンをクリック (textはボタン文字列かid)
   #同じ名前のボタンが複数ある場合には文字列は指定できない
 step %(:textボタンをクリックする) do |text|

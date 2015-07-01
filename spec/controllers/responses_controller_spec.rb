@@ -11,7 +11,6 @@ RSpec.describe ResponsesController, :type => :controller do
       "user_ipaddress"=>"192.168.0.2",
       "comment"=>"投稿テスト"
     }
-    # skip("Add a hash of attributes valid for your model")
   }
 
   let(:invalid_attributes) {
@@ -23,7 +22,6 @@ RSpec.describe ResponsesController, :type => :controller do
       "user_ipaddress"=>"",
       "comment"=>""
     }
-    # skip("Add a hash of attributes invalid for your model")
   }
   
   let(:valid_session) { {} }
