@@ -57,7 +57,6 @@ class ThreadBoardsController < ApplicationController
   # PATCH/PUT /thread_boards/1.json
   def update
     respond_to do |format|
-      binding.pry
       if @thread_board.update(thread_board_params)
         format.html { redirect_to @thread_board, notice: 'スレッド情報の更新に成功しました。' }
         format.json { render :show, status: :ok, location: @thread_board }
