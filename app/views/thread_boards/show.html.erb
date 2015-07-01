@@ -16,7 +16,7 @@
 						<%= form_tag(edit_thread_board_path(@thread_board), :name => "edit", :id => "edit") do %>
 					        <%= render 'pass' %>
 					        <%= submit_tag '編集', data: { disable_with: "送信中..." } %>
-					        <%= submit_tag '削除', id: :delete, name: :delete, data: { confirm: 'Are you sure?',disable_with: "送信中..." }, :onclick => ("change_action('edit','10/delete');") %>
+					        <%= submit_tag '削除', id: :delete, name: :delete, data: { confirm: '本当に削除してもよろしいですか？',disable_with: "送信中..." }, :onclick => ("change_action('edit','10/delete');") %>
 						<% end %>
 		      		<% else %>
 		      			<p>削除されたスレッドです</p>

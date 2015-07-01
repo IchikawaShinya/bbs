@@ -42,7 +42,7 @@ class ThreadBoardsController < ApplicationController
             format.html { redirect_to thread_boards_url, notice: 'スレッドの作成に成功しました。' }
             format.json { render :index, status: :created, location: @thread_board }
           else
-            format.html { render :new, notice: 'スレッドの作成に失敗しました。'  }
+            format.html { render :new, notice: 'スレッドの作成に失敗しました。' }
             format.json { render json: @thread_board.errors, status: :unprocessable_entity }
           end
         end
@@ -61,7 +61,7 @@ class ThreadBoardsController < ApplicationController
         format.html { redirect_to @thread_board, notice: 'スレッド情報の更新に成功しました。' }
         format.json { render :show, status: :ok, location: @thread_board }
       else
-        format.html { render :edit }
+        format.html { render :edit, notice: 'スレッドの更新に失敗しました。'  }
         format.json { render json: @thread_board.errors, status: :unprocessable_entity }
       end
     end
