@@ -8,10 +8,27 @@
 			</tr>
 		</thead>
 		<tbody>
+			
+			<tr>
+		      	<td>
+		      		<table class="responses_list">
+		      			<tbody>
+		      				<tr>
+		      					<td><%= render '/responses/list' %></td>
+		      				</tr>
+		      				<% unless @responses.blank? %>
+		      				<tr>
+		      					<td>※最新の<%= @limit_count %>件を表示しています。</td>
+		      				</tr>
+		      				<% end %>
+		      			</tbody>
+		      		</table>
+			    </td>
+			</tr>
 			<tr>
 		      	<td>
 		      		<% unless @thread_board.blank? %>
-				        <%= link_to '見る', '/responses/'+@thread_id.to_s %>
+				        <%= link_to '見る', '/responses/'+@thread_board_id.to_s %>
 				        
 						<%= form_tag(edit_thread_board_path(@thread_board), :name => "edit", :id => "edit") do %>
 					        <%= render 'pass' %>
@@ -21,7 +38,6 @@
 		      		<% else %>
 		      			<p>削除されたスレッドです</p>
 		      		<% end %>
-		      		
 			    </td>
 			</tr>
 		</tbody>

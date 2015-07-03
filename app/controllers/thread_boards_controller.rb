@@ -15,7 +15,11 @@ class ThreadBoardsController < ApplicationController
   # GET /thread_boards/1
   # GET /thread_boards/1.json
   def show
-      @thread_id = (params[:id])
+    @thread_board_id = params[:id]
+    
+    # 投稿コメント取得
+    @responses = Response.getLimitResponses(@thread_board_id, @limit_count = 15)
+    
   end
 
   # GET /thread_boards/new

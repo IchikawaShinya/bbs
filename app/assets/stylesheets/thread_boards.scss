@@ -50,3 +50,12 @@ padding-right: 15px;
 .thread_btm {
   text-align: left;
 }
+
+.responses_list {
+  border: solid 1px #000000; border-collapse: collapse;
+  width: 100%;
+}
+
+.responses_list td {
+  padding: 5px 15px;
+}
