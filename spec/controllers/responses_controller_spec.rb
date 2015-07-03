@@ -50,7 +50,10 @@ RSpec.describe ResponsesController, :type => :controller do
                      "user_email"=>"test@test.com",
                      "user_ipaddress"=>"192.168.0.2",
                      "comment"=>"投稿テスト"}}
+      
+      request.env['HTTP_REFERER'] = 'http://test.com/responses/1/last'
       post :create, response
+      expect(response).to redirect_to(request.env["HTTP_REFERER"])
       @res = Response.where("thread_board_id = 1")
       expect(@res.length).to eq 1
       

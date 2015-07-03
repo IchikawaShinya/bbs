@@ -13,7 +13,15 @@ class ResponsesController < ApplicationController
   def show
     @response = Response.new
     @thread_board_id = params[:id]
-    @responses = Response.where("thread_board_id = ?", @thread_board_id)
+    
+    if params[:type].blank?
+      # 投稿コメント取得
+      @responses = Response.getResponses(@thread_board_id)
+    else
+      # 投稿コメント取得
+      @responses = Response.getLimitResponses(@thread_board_id, @limit_count = 5)
+    end
+    
     
     @response_num = 1
     unless @responses.blank?
@@ -33,10 +41,10 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
-    # binding.pry // debug用コマンド
+    # binding.pry # debug用コマンド
     @response = Response.new(response_params)
-    url = "/responses/" + params[:response][:thread_board_id]
-    
+    url = request.env["HTTP_REFERER"]
+
     begin
       Response.transaction do
         respond_to do |format|
