@@ -1,0 +1,6 @@
+<div class="response_menu">
+	<%= link_to '掲示板TOP', thread_boards_path %>
+	<%= link_to '掲示板に戻る', thread_boards_path+"/"+@thread_board_id %>
+	<%= link_to '全部', responses_path+"/"+@thread_board_id %>
+	<%= link_to '最新5', responses_path+"/"+@thread_board_id+"/last5" %>
+</div>

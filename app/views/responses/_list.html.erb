@@ -1,0 +1,23 @@
+<div class="response_area">
+	<% unless @responses.blank? %>
+		<h1><%= "掲示板"+ @responses[0][:thread_board_id].to_s %></h1>
+		<dl>
+		    <% @responses.each do |response| %>
+		    	<% if response.deleted_at.blank? %>
+					<dt><%= response.response_num %>：
+					<% if response.user_email.blank? %>
+						<font color="green"><%= response.user_name %></font>
+					<% else %>
+						<a href="mailto:<%= response.user_email %>"><font color="blue"><%= response.user_name %></font></a>
+					<% end %>
+					：<%= response.created_at.strftime("%Y/%m/%d %H:%M:%S") %> 
+					<!--ID:<%= response.user_ipaddress %></dt> -->
+					<%# link_to '削除', response, method: :delete, data: { confirm: 'Are you sure?' } %>
+					<dd><%= simple_format(h(response.comment)) %></dd>
+			    <% end %>
+		    <% end %>
+		</dl>
+	<% else %>
+		<p>投稿がありません。</p>
+	<% end %>
+</div>

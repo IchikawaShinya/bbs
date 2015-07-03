@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :responses
   
   match "/responses/new" => 'responses#new', :via => [:get,:post]
+  match "/responses/:id(/:type)" => 'responses#show', :via => [:get,:post]
   
   match "/thread_boards/:id/edit(.:format)" => 'thread_boards#edit', :via => [:get,:post]
   

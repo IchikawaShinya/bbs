@@ -18,8 +18,17 @@ ul {
   padding-left: 0px;
 }
 
-.response p {
+.response_area p {
   margin: 3px;
+}
+
+.response_menu {
+  display: block;
+  padding: 0px 0px 5px 0px;
+}
+
+.response_menu a {
+  padding: 0px 5px 0px 0px;
 }
 
 #comment {
@@ -27,7 +36,6 @@ ul {
   height: 80px;
   line-height: 1.5em;
 }
-
 
 .actions {
   clear: both;
