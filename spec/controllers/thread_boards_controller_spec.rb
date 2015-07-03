@@ -119,14 +119,22 @@ RSpec.describe ThreadBoardsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          "category_id" => "1",
+          "thread_name" => "スレッド1",
+          "user_ipaddress" => "192.168.0.1",
+          "delete_pass" => "0000",
+        }
+        # skip("Add a hash of attributes valid for your model")
       }
 
       it "updates the requested thread_board" do
         thread_board = ThreadBoard.create! valid_attributes
         put :update, {:id => thread_board.to_param, :thread_board => new_attributes}, valid_session
         thread_board.reload
-        skip("Add assertions for updated state")
+        threadBoard = ThreadBoard.find_by_id(thread_board.id)
+        expect(threadBoard["thread_name"]).to eq(new_attributes["thread_name"])
+        # skip("Add assertions for updated state")
       end
 
       it "assigns the requested thread_board as @thread_board" do
