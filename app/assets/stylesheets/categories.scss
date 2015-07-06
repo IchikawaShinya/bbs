@@ -1,0 +1,34 @@
+// Place all the styles related to the categories controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.category{
+  margin: 10px 0px;
+  border-collapse: collapse;
+}
+.category th{
+  padding: 5px;
+  vertical-align: top;
+  color: #333;
+  background-color: #eee;
+  border: 1px solid #b9b9b9;
+}
+.category td{
+padding: 5px;
+  background-color: #fff;
+  border: 1px solid #b9b9b9;
+}
+
+
+.category_list {
+  border: 0px solid #b9b9b9;
+  border-collapse: collapse;
+  border-spacing: 7px;
+  width: 100%;
+  margin: auto;
+}
+
+.categoryFooter {
+  
+}

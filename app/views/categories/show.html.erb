@@ -1,0 +1,33 @@
+<div class="category">
+	<h1><%= @category[:category_name] %></h1>
+	
+	<p id="notice"><%= notice %></p>
+	
+	<div class="thread_link">
+		<%= link_to '新規スレッド作成', new_thread_board_path %>
+	</div>
+	
+	<table class="thread_list">
+		<thead>
+			<tr>
+				<th>スレッド一覧</th>
+			</tr>
+		</thead>
+	
+		<tbody>
+			<tr>
+		      	<td>
+		      		<% unless @thread_boards.blank? %>
+					    <% @thread_boards.each do |thread_board| %>
+					        <%= link_to thread_board[:thread_name], thread_board %>
+					    <% end %>
+				    <% end %>
+			    </td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div>
+		<%= link_to 'Back', categories_path %>
+	</div>
+</div>

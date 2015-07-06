@@ -28,7 +28,7 @@
 			<tr>
 		      	<td>
 		      		<% unless @thread_board.blank? %>
-				        <%= link_to '見る', '/responses/'+@thread_board_id.to_s %>
+				        <%= link_to '見る', responses_path+'/'+@thread_board_id.to_s %>
 				        
 						<%= form_tag(edit_thread_board_path(@thread_board), :name => "edit", :id => "edit") do %>
 					        <%= render 'pass' %>

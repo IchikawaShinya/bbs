@@ -1,0 +1,22 @@
+<div class="category">
+	<p id="notice"><%= notice %></p>
+	
+	<h1>Listing Categories</h1>
+	
+	<%= link_to 'New Category', new_category_path %>
+	
+	<table class="category_list">
+	  <tbody>
+	    <% @categories.each do |category| %>
+	      <tr>
+	        <td><%= link_to category["category_name"], category %></td>
+	        <td><%= link_to 'Edit', edit_category_path(category) %></td>
+	        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	<div class="categoryFooter">
+		<%= link_to 'カテゴリ管理', categories_path %>
+	</div>
+</div>
