@@ -1,6 +1,30 @@
 <h1>Editing Category</h1>
 
-<%= render 'form' %>
+<p id="notice"><%= notice %></p>
+<div>
+<%= form_for("categories", :url => {:action => 'update'}) do |f| %>
+  <div class="actions">
+  	<table class="category">
+  		<tr>
+  			<th>カテゴリ名</th>
+  			<th>順番</th>
+  			<th></th>
+  		</tr>
+	    <% @categories.each_with_index do |category,index| %>
+	    	<% name = "category["+index.to_s+"]" %>
+	      <tr>
+	  		<td>
+	  			<%= hidden_field name, "id" , :value => category["id"] %>
+	  			<%= text_field name, "category_name" , :value => category["category_name"] %></td>
+	  		<td><%= text_field name, "order" , :value => category["order"] %></td>
+	        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	      </tr>
+	    <% end %>
+  	</table>
+  	
+    <%= f.submit %>
+<% end %>
+</div>
 
 <%= link_to 'Show', @category %> |
 <%= link_to 'Back', categories_path %>

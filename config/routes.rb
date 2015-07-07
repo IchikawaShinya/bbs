@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  
+  match "/categories/update(.:format)" => 'categories#update', :via => [:get,:post]
+  match "/categories/edit(.:format)" => 'categories#edit', :via => [:get,:post]
+  
   resources :categories
   resources :thread_boards
   resources :responses
@@ -9,7 +13,6 @@ Rails.application.routes.draw do
   match "/thread_boards/:id/edit(.:format)" => 'thread_boards#edit', :via => [:get,:post]
   
   match "/thread_boards/:id/delete" => 'thread_boards#destroy', :via => [:get,:post]
-  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

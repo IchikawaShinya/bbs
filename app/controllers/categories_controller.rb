@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :destroy]
 
   # GET /categories
   # GET /categories.json
@@ -10,7 +10,6 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    # binding.pry # debug用コマンド
     @thread_boards = ThreadBoard.without_soft_destroyed.where("category_id = ?", params[:id])
   end
 
@@ -21,6 +20,8 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
+    @categories = Category.without_soft_destroyed.all
+    @category = Category.new
   end
 
   # POST /categories
@@ -28,38 +29,71 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
 
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
-        format.json { render :show, status: :created, location: @category }
-      else
-        format.html { render :new }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+    begin
+      Categories.transaction do
+        respond_to do |format|
+          if @category.save!
+            format.html { redirect_to @category, notice: 'Category was successfully created.' }
+            format.json { render :show, status: :created, location: @category }
+          else
+            format.html { render :new, notice: '更新に失敗しました。' }
+            format.json { render json: @category.errors, status: :unprocessable_entity }
+          end
+        end
       end
+    rescue => ex
+      ActiveRecord::Rollback
+      return render :new, notice: ex.message
     end
   end
 
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-    respond_to do |format|
-      if @category.update(category_params)
-        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
-        format.json { render :show, status: :ok, location: @category }
-      else
-        format.html { render :edit }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+    # @categories = params["category"]
+    url = request.env["HTTP_REFERER"]
+    @categories = Array.new
+    params["category"].each do|c|
+      category = Category.without_soft_destroyed.find(c[1]["id"].to_i)
+      category["category_name"] = c[1]["category_name"]
+      category["order"] = c[1]["order"].to_i
+      @categories.push(category)
+    end
+    
+    begin
+      Categories.transaction do
+        @categories.each do |category|
+          @category = Category.without_soft_destroyed.find(category[:id])
+          respond_to do |format|
+            # if @category.update(category_name)
+            if @category.update(:category_name => category_name[:category_name],:order => category_name[:order].to_i)
+              format.html { render :edit, notice: 'Category was successfully updated.' }
+              format.json { render :edit, status: :ok, location: @category }
+            else
+              format.html { render :edit, notice: '更新に失敗しました。' }
+              format.json { render json: category.errors, status: :unprocessable_entity }
+            end
+          end
+        end
       end
+    rescue => ex
+      ActiveRecord::Rollback
+      return render :edit, notice: ex.message
     end
   end
 
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    @category.destroy
-    respond_to do |format|
-      format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @category.soft_destroy!
+      respond_to do |format|
+        format.html { redirect_to categories_url+"/edit", notice: 'Category was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    rescue => ex
+      ActiveRecord::Rollback
+      return redirect_to categories_url+"/edit", notice: ex.message
     end
   end
 
