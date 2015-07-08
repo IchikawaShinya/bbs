@@ -2,7 +2,7 @@
 ja:
   attributes:
     category_name: カテゴリ名
-    order: 順番
+    order_num: 順番
     category_id: カテゴリ
     thread_name: スレッド名
     delete_pass: 削除用パスワード

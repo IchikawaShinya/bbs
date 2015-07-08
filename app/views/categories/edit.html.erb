@@ -14,10 +14,10 @@
 	    	<% name = "category["+index.to_s+"]" %>
 	      <tr>
 	  		<td>
-	  			<%= hidden_field name, "id" , :value => category["id"] %>
+	  			<%= hidden_field name, "id" , :value => category["id"].to_i %>
 	  			<%= text_field name, "category_name" , :value => category["category_name"] %></td>
-	  		<td><%= text_field name, "order" , :value => category["order"] %></td>
-	        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  		<td><%= text_field name, "order_num" , :value => category["order_num"] %></td>
+	        <td><%= link_to '削除', category, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' } %></td>
 	      </tr>
 	    <% end %>
   	</table>
@@ -26,5 +26,4 @@
 <% end %>
 </div>
 
-<%= link_to 'Show', @category %> |
-<%= link_to 'Back', categories_path %>
+<%= link_to '戻る', categories_path %>
