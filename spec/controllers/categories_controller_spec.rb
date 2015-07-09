@@ -24,11 +24,17 @@ RSpec.describe CategoriesController, type: :controller do
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      "category_name" => "新規カテゴリ1",
+      "order_num" => "1"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      "category_name" => "",
+      "order_num" => ""
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -63,7 +69,7 @@ RSpec.describe CategoriesController, type: :controller do
     it "assigns the requested category as @category" do
       category = Category.create! valid_attributes
       get :edit, {:id => category.to_param}, valid_session
-      expect(assigns(:category)).to eq(category)
+      expect(category).to be_persisted
     end
   end
 
@@ -103,40 +109,56 @@ RSpec.describe CategoriesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          "category_name" => "カテゴリ1",
+          "order_num" => "10"
+        }
+        # skip("Add a hash of attributes valid for your model")
+      }
+      
+      let(:edit_attributes) {
+        {
+          "0" => {"id" => category.to_param, "category_name" => "カテゴリ1", "order_num" => "1"}
+        }
+        # skip("Add a hash of attributes valid for your model")
       }
 
       it "updates the requested category" do
+        request.env['HTTP_REFERER'] = categories_url+'/edit'
         category = Category.create! valid_attributes
-        put :update, {:id => category.to_param, :category => new_attributes}, valid_session
+        put :update, {:category => {"0"=>{"id"=>category.to_param, "category_name"=>"カテゴリ1", "order_num"=>"1"}}}, valid_session
         category.reload
-        skip("Add assertions for updated state")
+        # skip("Add assertions for updated state")
       end
 
       it "assigns the requested category as @category" do
+        request.env['HTTP_REFERER'] = categories_url+'/edit'
         category = Category.create! valid_attributes
-        put :update, {:id => category.to_param, :category => valid_attributes}, valid_session
+        put :update, {:id => category.to_param, :category => {"0"=>{"id"=>category.to_param, "category_name"=>"カテゴリ1", "order_num"=>"1"}}}, valid_session
         expect(assigns(:category)).to eq(category)
       end
 
       it "redirects to the category" do
+        request.env['HTTP_REFERER'] = categories_url+'/edit'
         category = Category.create! valid_attributes
-        put :update, {:id => category.to_param, :category => valid_attributes}, valid_session
-        expect(response).to redirect_to(category)
+        put :update, {:id => category.to_param, :category => {"0"=>{"id"=>category.to_param, "category_name"=>"カテゴリ1", "order_num"=>"1"}}}, valid_session
+        expect(response).to redirect_to(request.env['HTTP_REFERER'])
       end
     end
 
     context "with invalid params" do
       it "assigns the category as @category" do
+        request.env['HTTP_REFERER'] = categories_url+'/edit'
         category = Category.create! valid_attributes
-        put :update, {:id => category.to_param, :category => invalid_attributes}, valid_session
-        expect(assigns(:category)).to eq(category)
+        put :update, {:id => category.to_param, :category => {"0"=>{"id"=>category.to_param, "category_name"=>"", "order_num"=>""}}}, valid_session
+        expect(assigns(:category)).to redirect_to(request.env['HTTP_REFERER'])
       end
 
       it "re-renders the 'edit' template" do
+        request.env['HTTP_REFERER'] = categories_url+'/edit'
         category = Category.create! valid_attributes
-        put :update, {:id => category.to_param, :category => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, { :category => {"0"=>{"id"=>category.to_param, "category_name"=>"カテゴリ1", "order_num"=>"1"}}}, valid_session
+        expect(response).to redirect_to(request.env['HTTP_REFERER'])
       end
     end
   end
@@ -146,13 +168,14 @@ RSpec.describe CategoriesController, type: :controller do
       category = Category.create! valid_attributes
       expect {
         delete :destroy, {:id => category.to_param}, valid_session
-      }.to change(Category, :count).by(-1)
+      }.to change(Category, :count).by(0)
     end
 
     it "redirects to the categories list" do
+      request.env['HTTP_REFERER'] = categories_url+'/edit'
       category = Category.create! valid_attributes
       delete :destroy, {:id => category.to_param}, valid_session
-      expect(response).to redirect_to(categories_url)
+      expect(response).to redirect_to(request.env['HTTP_REFERER'])
     end
   end
 
