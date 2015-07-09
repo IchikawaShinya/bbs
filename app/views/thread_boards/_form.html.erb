@@ -17,7 +17,7 @@
     <table>
     	<tr>
     		<th><%= f.label 'カテゴリ：', :class => 'thread_input thread_label' %></th>
-    		<td><%= f.select :category_id, {"カテゴリ1" => 1, "カテゴリ2" => 2, "カテゴリ3" => 3} %></td>
+    		<td><%= f.collection_select :category_id, Category.without_soft_destroyed.all, :id, :category_name %></td>
     	</tr>
     	<tr>
     		<th><%= f.label 'スレッド名：', :class => 'thread_input thread_label' %></th>
