@@ -50,9 +50,7 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-    # @categories = params["category"]
     url = request.env["HTTP_REFERER"]
-    # @categories = params["category"]
     @categories = Array.new
     unless params["category"].blank?
       params["category"].each_with_index do|cate,index|

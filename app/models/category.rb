@@ -10,7 +10,7 @@ class Category < ActiveRecord::Base
     validateFlg = true
     categories.each_with_index do |cate,index|
       if (index+1) < categories.length
-        if (cate[:order_num] == categories[index+1][:order_num])
+        if (cate["order_num"] == categories[index+1]["order_num"])
           validateFlg = false
         end
       end
