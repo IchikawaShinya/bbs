@@ -44,6 +44,7 @@ Feature: カテゴリ管理
   
   Scenario: カテゴリ編集(失敗)
     前提 "カテゴリ管理"リンクをクリックする
+    かつ "カテゴリ"が"2"個表示されている
     かつ "category[0][category_name]"に"カテゴリ1"を設定する
     かつ "category[0][order_num]"に"1"を設定する
     かつ "category[1][category_name]"に"カテゴリ2"を設定する
