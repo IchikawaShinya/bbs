@@ -24,11 +24,16 @@
 				        <%= link_to 'Destroy', thread_board, method: :delete, data: { confirm: 'Are you sure?' } %>
 				        -->
 				    <% end %>
-				    <%= paginate(@thread_boards) %>
 			    </td>
 			</tr>
 		</tbody>
 	</table>
+	
+	<div class="pagination">
+		<%= paginate(@thread_boards) %>
+	</div>
+	
+	
 	<div class="thread_link">
 		<%= link_to '戻る', categories_path %>
 	</div>
