@@ -24,6 +24,7 @@
 				        <%= link_to 'Destroy', thread_board, method: :delete, data: { confirm: 'Are you sure?' } %>
 				        -->
 				    <% end %>
+				    <%= paginate(@thread_boards) %>
 			    </td>
 			</tr>
 		</tbody>

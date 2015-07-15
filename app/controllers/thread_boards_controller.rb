@@ -6,7 +6,7 @@ class ThreadBoardsController < ApplicationController
   # GET /thread_boards
   # GET /thread_boards.json
   def index
-    @thread_boards = ThreadBoard.without_soft_destroyed.all
+    @thread_boards = ThreadBoard.without_soft_destroyed.page(params[:page]).per(3).all
     # @thread_boards = ThreadBoard.all.reorder(:category_id,:id)
     
     @thread_board = ThreadBoard.new
