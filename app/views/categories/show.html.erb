@@ -7,6 +7,10 @@
 		<%= link_to '新規スレッド作成', new_thread_board_path %>
 	</div>
 	
+	<div class="pageEntriesInfo">
+		<%= page_entries_info(@thread_boards) %>
+	</div>
+	
 	<table class="thread_list">
 		<thead>
 			<tr>
@@ -26,6 +30,10 @@
 			</tr>
 		</tbody>
 	</table>
+	
+	<div class="pagination">
+		<%= paginate(@thread_boards) %>
+	</div>
 	
 	<div>
 		<%= link_to '戻る', categories_path %>

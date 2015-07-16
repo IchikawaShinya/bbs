@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    @thread_boards = ThreadBoard.without_soft_destroyed.where("category_id = ?", params[:id])
+    @thread_boards = ThreadBoard.without_soft_destroyed.where("category_id = ?", params[:id]).page(params[:page])
   end
 
   # GET /categories/new

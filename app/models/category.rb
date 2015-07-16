@@ -1,5 +1,6 @@
 class Category < ActiveRecord::Base
   soft_deletable :column => :deleted_at
+  paginates_per 3  # 1ページあたり表示数
   # has_many :responses, dependent: :destroy
   validates :category_name, presence: { message: "が入力されていません。" }
   validates :order_num, presence: { message: "が入力されていません。" }
