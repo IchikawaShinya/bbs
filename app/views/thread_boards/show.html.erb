@@ -44,6 +44,6 @@
 	</table>
 	
 	<div class="thread_link">
-		<%= link_to '戻る', thread_boards_path %>
+		<%= link_to '戻る', categories_path+'/'+@thread_board["category_id"].to_s %>
 	</div>
 </div>
