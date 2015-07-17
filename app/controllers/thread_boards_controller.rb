@@ -108,6 +108,7 @@ class ThreadBoardsController < ApplicationController
       params.require(:thread_board).permit(:category_id, :thread_name, :thread_id, :user_ipaddress, :delete_pass)
     end
     
+    # 関連子テーブル削除
     def soft_destroy_with_children
       if @thread_board.soft_destroyed?
         @thread_board.responses.each do |child|
@@ -116,6 +117,7 @@ class ThreadBoardsController < ApplicationController
       end
     end
     
+    # パスワードチェック
     def check_pass
       @pass_flg = false
       unless params[:confirm_pass].blank?

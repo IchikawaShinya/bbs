@@ -7,6 +7,7 @@ class Category < ActiveRecord::Base
   
   default_scope -> { order("categories.id ASC") }
   
+  # 順番入力重複チェック
   def self.overlap_order_num(categories)
     validateFlg = true
     categories.each_with_index do |cate,index|
