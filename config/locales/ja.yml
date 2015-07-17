@@ -15,6 +15,15 @@ ja:
       previous: "&lsaquo; 前ページ"
       next: "次ページ &rsaquo;"
       truncate: "..."
+    helpers:
+      page_entries_info:
+        one_page:
+          display_entries:
+            zero: "<b>該当データがありません。</b>"
+            one: "<b>1件中 1-1 件を表示</b>"
+            display_entries: '1-%{count}件を表示中 / 合計%{count}件.'
+        more_pages:
+          display_entries: '%{first}-%{last}件を表示中 / 合計%{total}件'
       
   date:
     abbr_day_names:
