@@ -17,6 +17,23 @@ padding-right: 15px;
   clear: both;
 }
 
+.thread_boards{
+  margin: 10px 0px;
+  border-collapse: collapse;
+}
+.thread_boards th{
+  padding: 5px;
+  vertical-align: top;
+  color: #333;
+  background-color: #eee;
+  border: 1px solid #b9b9b9;
+}
+.thread_boards td{
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #b9b9b9;
+}
+
 .thread_boards {
   padding: 5px 15px;
 }
@@ -68,7 +85,7 @@ padding-right: 15px;
 }
 
 .pagination a {
-  padding: 2px 5px 2px 5px; 
+  padding: 2px 5px; 
   margin: 2px;
   border: 1px solid #000000;
   text-decoration: none; /* no underline */
@@ -81,7 +98,7 @@ div.pagination a:active {
   color: #fff;
 }
 .pagination span.current {
-  padding: 2px 0px 2px 5px;
+  padding: 2px 5px;
   margin: 2px;
   border: 1px solid #000000;
   font-weight: bold;
@@ -89,7 +106,7 @@ div.pagination a:active {
   color: #FFF;
 }
 .pagination span.disabled {
-  padding: 2px 5px 2px 5px;
+  padding: 2px 5px;
   margin: 2px;
   border: 1px solid #EEE;
   color: #DDD;
