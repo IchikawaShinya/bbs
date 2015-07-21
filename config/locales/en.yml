@@ -34,6 +34,9 @@ en:
     mistaken_password: "Mistaken Password"
     deleted_thread: "It is deleted thread."
     
+    posted: "Posted."
+    no_posted: "There is no post."
+    
     not_input: " has not been entered."
     not_select: " has not been selected."
     

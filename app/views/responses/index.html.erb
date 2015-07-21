@@ -12,9 +12,9 @@
   <tbody>
     <% @responses.each do |response| %>
       <tr>
-        <td><%= link_to 'Show', response %></td>
-        <td><%= link_to 'Edit', edit_response_path(response) %></td>
-        <td><%= link_to 'Destroy', response, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t("attributes.show"), response %></td>
+        <td><%= link_to t("attributes.edit"), edit_response_path(response) %></td>
+        <td><%= link_to t("attributes.delete"), response, method: :delete, data: { confirm: t("attributes.delete_confirm") } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -29,5 +29,5 @@
 <br>
 
 <div>
-	<%= link_to '戻る', thread_boards_path %>
+	<%= link_to t("attributes.back"), thread_boards_path %>
 </div>

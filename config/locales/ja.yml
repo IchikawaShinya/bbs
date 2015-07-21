@@ -1,6 +1,7 @@
 
 ja:
   attributes:
+    submit: "書き込む"
     show: "見る"
     edit: "編集"
     delete: "削除"
@@ -31,6 +32,11 @@ ja:
     thread_confirm_pass: "編集/削除時パスワード"
     mistaken_password: "パスワードが間違っています。"
     deleted_thread: "削除されたスレッドです。"
+    
+    user_name: "名前"
+    user_email: "E-Mail"
+    posted: "投稿しました。"
+    no_posted: "投稿がありません。"
     
     not_input: "が入力されていません。"
     not_select: "が選択されていません。"
