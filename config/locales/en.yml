@@ -3,7 +3,11 @@ en:
   hello: "Hello world"
   
   attributes:
+    show: "Show"
+    edit: "Edit"
     delete: "Delete"
+    back: "Back"
+    transmission: "transmission..."
     delete_confirm: "Are you sure?"
     created_success: "Successfully Created."
     created_failed: "Failed to Created."
@@ -12,7 +16,7 @@ en:
     update_success: "Successfully Updated."
     update_failed: "Failed to Updated."
     order_validate: "The same order can not be set."
-    back: "Back"
+    
     new_category: "New Category"
     category_management: "Category Management"
     new_thread_board: "New Thread Board"
@@ -23,6 +27,15 @@ en:
     thread_name: "Thread Name"
     delete_pass: "Delete Password"
     comment: "Comment"
+    
+    thread_detail: "Thread Detail"
+    thread_info_update: "Thread Update"
+    thread_confirm_pass: "Edit/Delete is Password"
+    mistaken_password: "Mistaken Password"
+    deleted_thread: "It is deleted thread."
+    
+    not_input: " has not been entered."
+    not_select: " has not been selected."
     
   views:
     pagination:

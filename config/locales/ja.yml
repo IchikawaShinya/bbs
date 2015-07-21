@@ -1,7 +1,11 @@
 
 ja:
   attributes:
+    show: "見る"
+    edit: "編集"
     delete: "削除"
+    back: "戻る"
+    transmission: "送信中..."
     delete_confirm: "本当に削除してもよろしいですか？"
     created_success: "登録に成功しました。"
     created_failed: "登録に失敗しました。"
@@ -10,7 +14,7 @@ ja:
     update_success: "更新に成功しました。"
     update_failed: "更新に失敗しました。"
     order_validate: "同じ順番は設定できません。"
-    back: "戻る"
+    
     new_category: "新規カテゴリ追加"
     category_management: "カテゴリ管理"
     new_thread_board: "新規スレッド作成"
@@ -21,6 +25,15 @@ ja:
     thread_name: "スレッド名"
     delete_pass: "削除用パスワード"
     comment: "コメント"
+    
+    thread_detail: "スレッド詳細"
+    thread_info_update: "スレッド情報更新"
+    thread_confirm_pass: "編集/削除時パスワード"
+    mistaken_password: "パスワードが間違っています。"
+    deleted_thread: "削除されたスレッドです。"
+    
+    not_input: "が入力されていません。"
+    not_select: "が選択されていません。"
     
   views:
     pagination:

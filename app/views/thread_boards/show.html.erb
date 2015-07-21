@@ -4,7 +4,7 @@
 	<table class="thread_list">
 		<thead>
 			<tr>
-			  <th>スレッド詳細</th>
+			  <th><%= t("attributes.thread_detail") %></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,15 +28,15 @@
 			<tr>
 		      	<td>
 		      		<% unless @thread_board.blank? %>
-				        <%= link_to '見る', responses_path+'/'+@thread_board_id.to_s %>
+				        <%= link_to t("attributes.show"), responses_path+'/'+@thread_board_id.to_s %>
 				        
 						<%= form_tag(edit_thread_board_path(@thread_board), :name => "edit", :id => "edit") do %>
 					        <%= render 'pass' %>
-					        <%= submit_tag '編集', data: { disable_with: "送信中..." } %>
-					        <%= submit_tag '削除', id: :delete, name: :delete, data: { confirm: '本当に削除してもよろしいですか？',disable_with: "送信中..." }, :onclick => ("change_action('edit','10/delete');") %>
+					        <%= submit_tag t("attributes.edit"), data: { disable_with: t("attributes.transmission") } %>
+					        <%= submit_tag t("attributes.delete"), id: :delete, name: :delete, data: { confirm: t("attributes.delete_confirm") }, :onclick => ("change_action('edit','10/delete');") %>
 						<% end %>
 		      		<% else %>
-		      			<p>削除されたスレッドです</p>
+		      			<p><%= t("attributes.thread_detail") %></p>
 		      		<% end %>
 			    </td>
 			</tr>
@@ -44,6 +44,6 @@
 	</table>
 	
 	<div class="thread_link">
-		<%= link_to '戻る', categories_path+'/'+@thread_board["category_id"].to_s %>
+		<%= link_to t("attributes.back"), categories_path+'/'+@thread_board["category_id"].to_s %>
 	</div>
 </div>

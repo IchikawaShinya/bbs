@@ -30,7 +30,7 @@ class ThreadBoardsController < ApplicationController
   # GET /thread_boards/1/edit
   def edit
     unless @pass_flg
-      redirect_to @thread_board, notice: 'パスワードが間違っています。(edit)'
+      redirect_to @thread_board, notice: t("attributes.mistaken_password")
     end
   end
 
@@ -43,10 +43,10 @@ class ThreadBoardsController < ApplicationController
       ThreadBoard.transaction do
         respond_to do |format|
           if @thread_board.save!
-            format.html { redirect_to thread_boards_url, notice: 'スレッドの作成に成功しました。' }
+            format.html { redirect_to thread_boards_url, notice: t("attributes.created_success") }
             format.json { render :index, status: :created, location: @thread_board }
           else
-            format.html { render :new, notice: 'スレッドの作成に失敗しました。' }
+            format.html { render :new, notice: t("attributes.created_failed") }
             format.json { render json: @thread_board.errors, status: :unprocessable_entity }
           end
         end
@@ -62,10 +62,10 @@ class ThreadBoardsController < ApplicationController
   def update
     respond_to do |format|
       if @thread_board.update(thread_board_params)
-        format.html { redirect_to @thread_board, notice: 'スレッド情報の更新に成功しました。' }
+        format.html { redirect_to @thread_board, notice: t("attributes.update_success") }
         format.json { render :show, status: :ok, location: @thread_board }
       else
-        format.html { render :edit, notice: 'スレッドの更新に失敗しました。'  }
+        format.html { render :edit, notice: t("attributes.update_failed")  }
         format.json { render json: @thread_board.errors, status: :unprocessable_entity }
       end
     end
@@ -82,7 +82,7 @@ class ThreadBoardsController < ApplicationController
           # @thread_board.responses.soft_destroy!
           # Response.soft_destroyed
           respond_to do |format|
-            format.html { redirect_to thread_boards_url, notice: 'スレッドの削除に成功しました。' }
+            format.html { redirect_to thread_boards_url, notice: t("attributes.delete_success") }
             format.json { head :no_content }
           end
         end
@@ -91,7 +91,7 @@ class ThreadBoardsController < ApplicationController
         return redirect_to thread_boards_url, notice: ex.message
       end
     else
-      redirect_to @thread_board, notice: 'パスワードが間違っています。'
+      redirect_to @thread_board, notice: t("attributes.mistaken_password")
     end
     
   end
