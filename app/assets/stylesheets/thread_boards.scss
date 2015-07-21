@@ -50,6 +50,22 @@ padding-right: 15px;
     padding: 10px 0px;
 }
 
+.thread_table {
+  border-collapse: collapse;
+}
+.thread_table th{
+  padding: 6px;
+  text-align: left;
+  vertical-align: top;
+  color: #333;
+  background-color: #eee;
+  border: 1px solid #b9b9b9;
+}
+.thread_table td{
+  padding: 6px;
+  background-color: #fff;
+  border: 1px solid #b9b9b9;
+}
 
 .thread_list {
   background-color: #CCFFCC;
