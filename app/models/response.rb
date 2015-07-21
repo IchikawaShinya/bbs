@@ -3,7 +3,7 @@ class Response < ActiveRecord::Base
   soft_deletable :column => :deleted_at
   
   belongs_to :thread_board
-  validates :comment, presence: { message: "が入力されていません。" }
+  validates :comment, presence: { message: t("attributes.not_input") }
   
   default_scope -> { order("responses.response_num ASC") }
   
