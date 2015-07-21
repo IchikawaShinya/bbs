@@ -14,8 +14,8 @@
   <div class="actions">
   	<table class="category">
   		<tr>
-  			<th>カテゴリ名</th>
-  			<th>順番</th>
+  			<th><%= t("attributes.category_name") %></th>
+  			<th><%= t("attributes.order_num") %></th>
   		</tr>
   		<tr>
 	  		<td><%= f.text_field :category_name, :value => @category[:category_name] %></td>

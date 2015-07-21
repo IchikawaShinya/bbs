@@ -4,7 +4,7 @@
 	<p id="notice"><%= notice %></p>
 	
 	<div class="thread_link">
-		<%= link_to '新規スレッド作成', new_thread_board_path %>
+		<%= link_to t("attributes.new_thread_board"), new_thread_board_path %>
 	</div>
 	
 	<div class="pageEntriesInfo">
@@ -14,7 +14,7 @@
 	<table class="thread_list">
 		<thead>
 			<tr>
-				<th>スレッド一覧</th>
+				<th><%= t("attributes.thread_list") %></th>
 			</tr>
 		</thead>
 	
@@ -36,6 +36,6 @@
 	</div>
 	
 	<div>
-		<%= link_to '戻る', categories_path %>
+		<%= link_to t("attributes.back"), categories_path %>
 	</div>
 </div>

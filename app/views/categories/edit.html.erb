@@ -6,8 +6,8 @@
   <div class="actions">
   	<table class="category">
   		<tr>
-  			<th>カテゴリ名</th>
-  			<th>順番</th>
+  			<th><%= t("attributes.category_name") %></th>
+  			<th><%= t("attributes.order_num") %></th>
   			<th></th>
   		</tr>
 	    <% @categories.each_with_index do |category,index| %>
@@ -17,7 +17,7 @@
 	  			<%= hidden_field name, "id" , :value => category["id"].to_i %>
 	  			<%= text_field name, "category_name" , :value => category["category_name"] %></td>
 	  		<td><%= text_field name, "order_num" , :value => category["order_num"] %></td>
-	        <td><%= link_to '削除', category, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' } %></td>
+	        <td><%= link_to t("attributes.delete"), category, method: :delete, data: { confirm: t("attributes.delete_confirm") } %></td>
 	      </tr>
 	    <% end %>
   	</table>
@@ -26,4 +26,4 @@
 <% end %>
 </div>
 
-<%= link_to '戻る', categories_path %>
+<%= link_to t("attributes.attributes.back"), categories_path %>

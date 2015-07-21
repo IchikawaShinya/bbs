@@ -1,12 +1,26 @@
----
+
 ja:
   attributes:
-    category_name: カテゴリ名
-    order_num: 順番
-    category_id: カテゴリ
-    thread_name: スレッド名
-    delete_pass: 削除用パスワード
-    comment: コメント
+    delete: "削除"
+    delete_confirm: "本当に削除してもよろしいですか？"
+    created_success: "登録に成功しました。"
+    created_failed: "登録に失敗しました。"
+    delete_success: "削除に成功しました。"
+    delete_failed: "削除に失敗しました。"
+    update_success: "更新に成功しました。"
+    update_failed: "更新に失敗しました。"
+    order_validate: "同じ順番は設定できません。"
+    back: "戻る"
+    new_category: "新規カテゴリ追加"
+    category_management: "カテゴリ管理"
+    new_thread_board: "新規スレッド作成"
+    thread_list: "スレッド一覧"
+    category_name: "カテゴリ名"
+    order_num: "順番"
+    category_id: "カテゴリ"
+    thread_name: "スレッド名"
+    delete_pass: "削除用パスワード"
+    comment: "コメント"
     
   views:
     pagination:
@@ -19,11 +33,11 @@ ja:
       page_entries_info:
         one_page:
           display_entries:
-            zero: "<b>該当データがありません。</b>"
-            one: "<b>1件中 1-1 件を表示</b>"
-            display_entries: '1-%{count}件を表示中 / 合計%{count}件.'
+            zero: "該当データがありません。"
+            one: "1件中 1-1 件を表示"
+            display_entries: "1-%{count}件を表示中 / 合計%{count}件."
         more_pages:
-          display_entries: '%{first}-%{last}件を表示中 / 合計%{total}件'
+          display_entries: "{first}-%{last}件を表示中 / 合計%{total}件"
       
   date:
     abbr_day_names:

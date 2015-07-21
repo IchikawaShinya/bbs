@@ -4,7 +4,7 @@
 	<h1>Listing Categories</h1>
 	
 	<div class="categoryFooter">
-		<%= link_to '新規カテゴリ追加', new_category_path %>
+		<%= link_to t("attributes.new_category"), new_category_path %>
 	</div>
 	
 	<table class="category_list">
@@ -17,6 +17,6 @@
 	  </tbody>
 	</table>
 	<div class="categoryFooter">
-		<%= link_to 'カテゴリ管理', categories_path+"/edit" %>
+		<%= link_to t("attributes.category_management"), categories_path+"/edit" %>
 	</div>
 </div>

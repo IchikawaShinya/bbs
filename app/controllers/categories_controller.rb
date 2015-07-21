@@ -33,10 +33,10 @@ class CategoriesController < ApplicationController
       Category.transaction do
         respond_to do |format|
           if @category.save!
-            format.html { redirect_to @category, notice: 'Category was successfully created.' }
+            format.html { redirect_to @category, notice: t("attributes.created_success") }
             format.json { render :index, status: :created, location: @category }
           else
-            format.html { render :new, notice: '更新に失敗しました。' }
+            format.html { render :new, notice: t("attributes.created_failed") }
             format.json { render json: @category.errors, status: :unprocessable_entity }
           end
         end
@@ -80,16 +80,16 @@ class CategoriesController < ApplicationController
       
       respond_to do |format|
         if @updateFlg
-          format.html { redirect_to url, notice: '更新に成功しました。' }
+          format.html { redirect_to url, notice: t("attributes.update_success") }
           format.json { render :edit, status: :ok, location: @category }
         else
-          format.html { redirect_to url, notice: '更新に失敗しました。' }
+          format.html { redirect_to url, notice: t("attributes.update_failed") }
           format.json { render json: category.errors, status: :unprocessable_entity }
         end
       end
     else
       respond_to do |format|
-          format.html { redirect_to url, notice: '同じ順番は設定できません。' }
+          format.html { redirect_to url, notice: t("attributes.order_validate") }
           format.json { render json: category.errors, status: :unprocessable_entity }
       end
     end
@@ -101,7 +101,7 @@ class CategoriesController < ApplicationController
     begin
       @category.soft_destroy!
       respond_to do |format|
-        format.html { redirect_to categories_url+"/edit", notice: '削除に成功しました。' }
+        format.html { redirect_to categories_url+"/edit", notice: t("attributes.delete_success") }
         format.json { head :no_content }
       end
     rescue => ex
