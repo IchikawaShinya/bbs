@@ -1,8 +1,8 @@
 class Category < ActiveRecord::Base
   soft_deletable :column => :deleted_at
   # has_many :responses, dependent: :destroy
-  validates :category_name, presence: { message: t("attributes.not_input") }
-  validates :order_num, presence: { message: t("attributes.not_input") }
+  validates :category_name, presence: { message: I18n.t("attributes.not_input") }
+  validates :order_num, presence: { message: I18n.t("attributes.not_input") }
   
   default_scope -> { order("categories.id ASC") }
   
