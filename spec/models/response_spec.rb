@@ -11,15 +11,25 @@ RSpec.describe Response, :type => :model do
     limit_count = 3
     
     before do
+      thread_attributes = {
+        "category_id" => "1",
+        "thread_name" => "新規スレッド",
+        "user_ipaddress" => "192.168.0.1",
+        "delete_pass" => "0000"
+      }
+      thread_board = ThreadBoard.create! thread_attributes
+      thread_board_id = thread_board.to_param
+      
       response_count.times do |i|
-        response = Response.new(
-        "response_num"=> i,
-        "thread_board_id"=> "1",
-        "user_name"=> "user1",
-        "user_email"=> "test@test.com",
-        "user_ipaddress"=> "192.168.0.1",
-        "comment"=> "投稿テスト"+i.to_s)
-        response.save
+        response_attributes = {
+            "response_num"=> i + 1,
+            "thread_board_id"=> thread_board.to_param,
+            "user_name"=> "user1",
+            "user_email"=> "test@test.com",
+            "user_ipaddress"=> "192.168.0.1",
+            "comment"=> "投稿テスト" + i.to_s
+          }
+        Response.create! response_attributes
       end
     end
     
