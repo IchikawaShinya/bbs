@@ -7,6 +7,7 @@
 		<%= link_to t("attributes.new_thread_board"), new_thread_board_path %>
 	</div>
 	
+	<% unless @thread_boards.blank? %>
 	<div class="pageEntriesInfo">
 		<%= page_entries_info(@thread_boards) %>
 	</div>
@@ -37,6 +38,9 @@
 	<div class="pagination">
 		<%= paginate(@thread_boards) %>
 	</div>
+	<% else %>
+		スレッドが存在しません。
+	<% end %>
 	
 	
 	<div class="thread_link">
