@@ -25,6 +25,8 @@
 					    <% @thread_boards.each do |thread_board| %>
 					        <%= link_to thread_board[:thread_name], thread_board %>
 					    <% end %>
+				    <% else %>
+				    	<p>スレッドが存在しません</p>
 				    <% end %>
 			    </td>
 			</tr>
