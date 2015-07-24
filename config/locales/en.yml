@@ -1,8 +1,7 @@
 
 en:
-  hello: "Hello world"
-  
   attributes:
+    submit: "Submit"
     show: "Show"
     edit: "Edit"
     delete: "Delete"
@@ -34,6 +33,8 @@ en:
     mistaken_password: "Mistaken Password"
     deleted_thread: "It is deleted thread."
     
+    user_name: "User Name"
+    user_email: "E-Mail"
     posted: "Posted."
     no_posted: "There is no post."
     
@@ -47,6 +48,15 @@ en:
       previous: "&lsaquo; prev"
       next: "next &rsaquo;"
       truncate: "..."
+    helpers:
+      page_entries_info:
+        one_page:
+          display_entries:
+            zero: "該当データがありません。"
+            one: "1件中 1-1 件を表示"
+            display_entries: "1-%{count}件を表示中 / 合計%{count}件."
+        more_pages:
+          display_entries: "{first}-%{last}件を表示中 / 合計%{total}件"
   
   date:
     abbr_day_names:
